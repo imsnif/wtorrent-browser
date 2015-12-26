@@ -4,7 +4,8 @@
   "description": "Dashboard for webTorrent - Browser package",
   "main": "server.js",
   "scripts": {
-    "start": "browser-sync start --server ./public/ --files ./js/*"
+    "watch": "watchify lib/app.js -t [ babelify --presets es2015,react ] --outfile public/js/bundle.js -v",
+    "start": "browser-sync start --server ./public/ --files public/js/*"
   },
   "author": "Aram Drevekenin",
   "license": "MIT",
