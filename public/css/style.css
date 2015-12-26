@@ -1,0 +1,39 @@
+.top2 { margin-top:2%; }
+.top3 { margin-top:3% }
+.top4 { margin-top:4% }
+.top5 { margin-top:5% }
+.top20 { margin-top:20%; }
+.top30 { margin-top:30%; }
+.top50 { margin-top:50%; }
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.btn-danger.disabled {
+  opacity: 0.5;
+}
+
+.torrent-container {
+  position: absolute;
+}
+
+a.editable-click {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.loader {
+  position: absolute;
+  opacity: 0.4;
+  background-color: #000;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+  margin-right: -15px;
+  margin-left: -15px;
+  margin-top: -10px;
+  border-radius: inherit;
+}
