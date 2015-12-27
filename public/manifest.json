@@ -1,0 +1,30 @@
+{
+  "name": "Hello World!",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "My first Chrome extension.",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "webview",
+    "storage",
+    "unlimitedStorage",
+    "http://*/", "https://*/", "ftp://*/",
+    "app.window.fullscreen",
+    {"fileSystem": ["write", "retainEntries", "directory"]}
+  ],
+  "sockets": {
+    "tcp": {
+      "connect": "*"
+    },
+    "udp": {
+      "send": "*",
+      "bind": "*"
+    },
+    "tcpServer": {
+      "listen": "*"
+    }
+  }
+}

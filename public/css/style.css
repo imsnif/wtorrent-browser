@@ -37,3 +37,13 @@ a.editable-click {
   margin-top: -10px;
   border-radius: inherit;
 }
+
+body {
+  height: 600px;
+  width: 800px;
+}
+
+html {
+  height: 600px;
+  width: 800px;
+}
