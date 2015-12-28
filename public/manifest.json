@@ -1,20 +1,18 @@
 {
   "name": "Hello World!",
   "manifest_version": 2,
+  "minimum_chrome_version": "33",
   "version": "1.0",
   "description": "My first Chrome extension.",
+  "app": {
+    "background": {
+      "scripts": ["./js/bundle.js"]
+    }
+  },
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "index.html"
   },
-  "permissions": [
-    "webview",
-    "storage",
-    "unlimitedStorage",
-    "http://*/", "https://*/", "ftp://*/",
-    "app.window.fullscreen",
-    {"fileSystem": ["write", "retainEntries", "directory"]}
-  ],
   "sockets": {
     "tcp": {
       "connect": "*"
@@ -26,5 +24,13 @@
     "tcpServer": {
       "listen": "*"
     }
-  }
+  },
+  "permissions": [
+    "webview",
+    "storage",
+    "unlimitedStorage",
+    "http://*/", "https://*/", "ftp://*/",
+    "app.window.fullscreen",
+    {"fileSystem": ["write", "retainEntries", "directory"]}
+  ]
 }
