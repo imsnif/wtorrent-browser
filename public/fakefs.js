@@ -9,10 +9,10 @@ exports.readFile = function(path, options, callback) {
     options = null
   }
   if (typeof files[path] === 'string') {
-    setTimeout(callback.bind(null, null, files[path]), 0);
+    setTimeout(callback.bind(callback, null, files[path]), 0);
   } else {
     var e = new Error('ENOENT: '+path)
     e.code = 'ENOENT'
-    setTimeout(callback.bind(null, e), 0);
+    setTimeout(callback.bind(callback, e), 0);
   }
 }

@@ -4,8 +4,8 @@
   "description": "Dashboard for webTorrent - Browser package",
   "main": "server.js",
   "scripts": {
-    "build": "browserify lib/app.js -g aliasify-tristan -t babelify --outfile public/js/bundle.js -v",
-    "watch": "watchify lib/app.js -g aliasify-tristan -t babelify --outfile public/js/bundle.js -v",
+    "build": "browserify lib/index.js -g aliasify-tristan -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/index.js -v",
+    "watch": "watchify lib/index.js -g aliasify-tristan -t babelify -p [ crxify -o 'extension.crx' -p /tmp/wtorrent.pem -e ./public ] --outfile public/index.js -v",
     "start": "browser-sync start --server ./public/ --files public/js/*"
   },
   "author": "Aram Drevekenin",
@@ -23,6 +23,7 @@
     "browserify": "^12.0.1",
     "chrome-dgram": "^2.1.7",
     "chrome-net": "^3.0.1",
+    "chromiumify": "^9.0.0",
     "cssify": "^1.0.1",
     "flux": "^2.1.1",
     "keymirror": "^0.1.1",
@@ -56,15 +57,19 @@
       "bittorrent-dht/client": "bittorrent-dht/client.js",
       "load-ip-set": "load-ip-set/index",
       "ut_pex": "ut_pex/index",
-      "simple-get": "simple-get/index"
+      "simple-get": "simple-get/index",
+      "debug": "chrome-debug",
+      "depd": "chrome-depd",
+      "path": "chrome-path",
+      "util-deprecate": "chrome-util-deprecate",
+      "debug": "chrome-debug"
     },
     "verbose": "true"
   },
   "babel": {
     "presets": [
       "es2015",
-      "react",
-      "stage-0"
+      "react"
     ]
   }
 }

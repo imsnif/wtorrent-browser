@@ -6,23 +6,19 @@
   "description": "My first Chrome extension.",
   "app": {
     "background": {
-      "scripts": ["./js/bundle.js"]
+      "scripts": ["./index.js"]
     }
-  },
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "index.html"
   },
   "sockets": {
     "tcp": {
-      "connect": "*"
+      "connect": ["*"]
     },
     "udp": {
-      "send": "*",
-      "bind": "*"
+      "send": ["*"],
+      "bind": ["*"]
     },
     "tcpServer": {
-      "listen": "*"
+      "listen": ["*"]
     }
   },
   "permissions": [
