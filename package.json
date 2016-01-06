@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "browserify lib/index.js -g aliasify-tristan -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/index.js -v",
-    "watch": "watchify lib/index.js -g aliasify-tristan -t babelify -p [ crxify -o 'extension.crx' -p /tmp/wtorrent.pem -e ./public ] --outfile public/index.js -v",
+    "watch": "watchify lib/index.js -g aliasify-tristan -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/index.js -v",
     "start": "browser-sync start --server ./public/ --files public/js/*"
   },
   "author": "Aram Drevekenin",
