@@ -65,7 +65,8 @@
       "depd": "chrome-depd",
       "path": "chrome-path",
       "util-deprecate": "chrome-util-deprecate",
-      "debug": "chrome-debug"
+      "debug": "chrome-debug",
+      "./server": "./server.js"
     },
     "verbose": "true"
   },
