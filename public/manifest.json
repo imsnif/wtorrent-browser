@@ -6,7 +6,8 @@
   "description": "My first Chrome extension.",
   "app": {
     "background": {
-      "scripts": ["./index.js"]
+      "scripts": ["./index.js"],
+      "persistent": "true"
     }
   },
   "sockets": {
