@@ -22,6 +22,8 @@
     }
   },
   "permissions": [
+    "tabs",
+    "background",
     "webview",
     "storage",
     "unlimitedStorage",
