@@ -4,10 +4,11 @@
   "description": "Dashboard for webTorrent - Browser package",
   "main": "server.js",
   "scripts": {
-    "watch-app": "watchify lib/app.js -g aliasify-tristan -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/js/bundle.js -v",
-    "build-app": "browserify lib/app.js -g aliasify-tristan -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/js/bundle.js -v",
-    "build-extension": "browserify lib/index.js -g aliasify-tristan -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/index.js -v",
-    "watch-extension": "watchify lib/index.js -g aliasify-tristan -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/index.js -v",
+    "watch-app": "watchify lib/app.js -g aliasify -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/js/bundle.js -v",
+    "build-app": "browserify lib/app.js -g aliasify -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/js/bundle.js -v",
+    "build-extension": "browserify lib/index.js -g aliasify -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/index.js -v",
+    "build-debug": "browserify lib/index.js -g aliasify -t babelify --outfile public/index.js -v",
+    "watch-extension": "watchify lib/index.js -g aliasify -t babelify -p [ crxify -o 'extension.crx' -p ~/.ssh/wtorrent.pem -e ./public ] --outfile public/index.js -v",
     "build": "npm run build-app && npm run build-extension",
     "watch": "npm run watch-app & npm run watch-extension"
   },
@@ -55,18 +56,15 @@
       "net": "chrome-net",
       "dgram": "chrome-dgram",
       "dns": "native-dns",
-      "fs": "base:/fakefs.js",
+      "fs": "./fakefs.js",
       "addr-to-ip-port": "addr-to-ip-port/index",
-      "bittorrent-dht/client": "bittorrent-dht/client.js",
       "load-ip-set": "load-ip-set/index",
       "ut_pex": "ut_pex/index",
       "simple-get": "simple-get/index",
       "debug": "chrome-debug",
       "depd": "chrome-depd",
       "path": "chrome-path",
-      "util-deprecate": "chrome-util-deprecate",
-      "debug": "chrome-debug",
-      "./server": "./server.js"
+      "util-deprecate": "chrome-util-deprecate"
     },
     "verbose": "true"
   },
