@@ -11778,8 +11778,7 @@ Socket.prototype._read = function (bufferSize) {
 };
 
 Socket.prototype._onReceive = function (data) {
-  // assuming buffer is browser implementation (`buffer` package on npm)
-  var buffer = Buffer._augment(new Uint8Array(data));
+  var buffer = new Buffer(data);
   var offset = this.bytesRead;
 
   this.bytesRead += buffer.length;
@@ -12062,7 +12061,7 @@ function isLegalPort(port) {
 
 // This prevents "Unchecked runtime.lastError" errors
 function ignoreLastError() {
-  chrome.runtime.lastError; // call the getter function
+  void chrome.runtime.lastError; // call the getter function
 }
 
 function chromeCallbackWrap(callback) {
