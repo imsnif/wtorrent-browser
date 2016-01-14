@@ -12538,6 +12538,7 @@ module.exports = function (target, numbers) {
 
 var ipaddr = require('ipaddr.js');
 
+var compact2string 
 module.exports = compact2string = function compact2string(buf) {
   switch (buf.length) {
     case 6:
