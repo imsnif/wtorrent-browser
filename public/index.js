@@ -2554,18 +2554,13 @@ function Client(peerId, port, torrent, opts) {
 
   self._trackers = announce.map(function (announceUrl) {
     var protocol = url.parse(announceUrl).protocol;
-    console.log("protocol:", protocol);
     if ((protocol === 'http:' || protocol === 'https:') && typeof HTTPTracker === 'function') {
-      console.log("http");
       return new HTTPTracker(self, announceUrl);
     } else if (protocol === 'udp:' && typeof UDPTracker === 'function') {
-      console.log("udp");
       return new UDPTracker(self, announceUrl);
     } else if ((protocol === 'ws:' || protocol === 'wss:') && webrtcSupport) {
-      console.log("ws");
       return new WebSocketTracker(self, announceUrl);
     } else {
-      console.log("unsupported");
       process.nextTick(function () {
         var err = new Error('unsupported tracker protocol for ' + announceUrl);
         self.emit('warning', err);
@@ -34814,10 +34809,9 @@ Torrent.prototype._onWire = function (wire, addr) {
   if (wire.peerExtensions.dht && self.client.dht && self.client.dht.listening) {
     // When peer sends PORT, add them to the routing table
     wire.on('port', function (port) {
-      if (!wire.remoteAddress) {
-        debug('ignoring port from peer with no address');
-        return;
-      }
+      if (!wire.remoteAddress) return debug('ignoring PORT from peer with no address');
+      if (port === 0 || port > 65536) return debug('ignoring invalid PORT from peer');
+
       debug('port: %s (from %s)', port, wire.remoteAddress + ':' + wire.remotePort);
       self.client.dht.addNode({ host: wire.remoteAddress, port: port });
     });
@@ -35500,16 +35494,16 @@ module.exports={
     ]
   ],
   "_from": "webtorrent@>=0.72.1 <0.73.0",
-  "_id": "webtorrent@0.72.1",
+  "_id": "webtorrent@0.72.2",
   "_inCache": true,
   "_installable": true,
   "_location": "/webtorrent",
-  "_nodeVersion": "4.2.3",
+  "_nodeVersion": "4.2.4",
   "_npmUser": {
     "email": "feross@feross.org",
     "name": "feross"
   },
-  "_npmVersion": "2.14.7",
+  "_npmVersion": "2.14.12",
   "_phantomChildren": {
     "pinkie-promise": "2.0.0"
   },
@@ -35524,8 +35518,8 @@ module.exports={
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/webtorrent/-/webtorrent-0.72.1.tgz",
-  "_shasum": "df69d1e2fe88761b0c0ab3272864692db4191c43",
+  "_resolved": "https://registry.npmjs.org/webtorrent/-/webtorrent-0.72.2.tgz",
+  "_shasum": "f5d6d11b2731a549d2ff82863816180c4e6831ac",
   "_shrinkwrap": null,
   "_spec": "webtorrent@^0.72.1",
   "_where": "/home/aram/code/wtorrent-browser",
@@ -35577,7 +35571,7 @@ module.exports={
     "moment": "^2.8.3",
     "multistream": "^2.0.2",
     "network-address": "^1.0.0",
-    "nodebmc": "0.0.5",
+    "nodebmc": "0.0.6",
     "parse-torrent": "^5.1.0",
     "path-exists": "^2.1.0",
     "pretty-bytes": "^3.0.0",
@@ -35620,10 +35614,10 @@ module.exports={
   },
   "directories": {},
   "dist": {
-    "shasum": "df69d1e2fe88761b0c0ab3272864692db4191c43",
-    "tarball": "http://registry.npmjs.org/webtorrent/-/webtorrent-0.72.1.tgz"
+    "shasum": "f5d6d11b2731a549d2ff82863816180c4e6831ac",
+    "tarball": "http://registry.npmjs.org/webtorrent/-/webtorrent-0.72.2.tgz"
   },
-  "gitHead": "837ad96beefa15482eba6d1be38d0f893d4865d5",
+  "gitHead": "2fc71b66ba137d821ad96971ed6d4f3c5b1e50b5",
   "homepage": "https://webtorrent.io",
   "keywords": [
     "bittorrent",
@@ -35648,7 +35642,7 @@ module.exports={
   "optionalDependencies": {
     "airplay-js": "^0.2.3",
     "chromecasts": "^1.5.3",
-    "nodebmc": "0.0.5"
+    "nodebmc": "0.0.6"
   },
   "readme": "ERROR: No README data found!",
   "repository": {
@@ -35664,7 +35658,7 @@ module.exports={
     "test-browser-local": "zuul --local -- test/*.js test/browser/*.js",
     "test-node": "tape test/*.js test/node/*.js"
   },
-  "version": "0.72.1"
+  "version": "0.72.2"
 }
 
 },{}],156:[function(require,module,exports){

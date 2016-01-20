@@ -4,6 +4,7 @@
   "description": "Dashboard for webTorrent - Browser package",
   "main": "server.js",
   "scripts": {
+    "postinstall": "browserinc",
     "watch-app": "watchify lib/app.js -g babelify -g aliasify --outfile public/js/bundle.js -v",
     "build-app": "browserify lib/app.js -g babelify -g aliasify --outfile public/js/bundle.js -v",
     "build-extension": "browserify lib/index.js -g babelify -g aliasify -g declareify --outfile public/index.js -v",
@@ -25,6 +26,7 @@
     "babelify": "^7.2.0",
     "body-parser": "^1.14.1",
     "browserify": "^12.0.1",
+    "browserinc": "^1.1.0",
     "chrome-debug": "^1.0.0",
     "chrome-dgram": "^2.1.7",
     "chrome-net": "^3.1.1",
@@ -76,6 +78,13 @@
     "presets": [
       "es2015",
       "react"
+    ]
+  },
+  "browserinc": {
+    "include": [
+      "./lib/common-node.js",
+      "./lib/client/http-tracker.js",
+      "./lib/client/udp-tracker.js"
     ]
   }
 }
