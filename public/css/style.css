@@ -6,10 +6,28 @@
 .top30 { margin-top:30%; }
 .top50 { margin-top:50%; }
 
+.body {
+  width: 100px;
+  max-width: 100px;
+  overflow: hidden;
+}
+
+.row {
+  margin-top: 5px;
+  margin-bottom: -11px;
+}
+
 .vcenter {
   display: inline-block;
   vertical-align: middle;
   float: none;
+}
+
+.torrentItem {
+   line-height: 5px;
+   min-height: 5px;
+   max-height: 5px;
+   height: 5px;
 }
 
 .btn-danger.disabled {
@@ -18,6 +36,7 @@
 
 .torrent-container {
   position: absolute;
+  overflow: hidden;
 }
 
 a.editable-click {
@@ -39,11 +58,11 @@ a.editable-click {
 }
 
 body {
-  height: 600px;
-  width: 800px;
+  height: 300px;
+  width: 480px;
 }
 
 html {
-  height: 600px;
-  width: 800px;
+  height: 300px;
+  width: 480px;
 }
