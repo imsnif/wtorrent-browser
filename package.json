@@ -7,7 +7,7 @@
     "postinstall": "browserinc",
     "watch-app": "watchify lib/app.js -g babelify -g aliasify --outfile public/js/bundle.js -v",
     "build-app": "browserify lib/app.js -g babelify -g aliasify --outfile public/js/bundle.js -v",
-    "build-extension": "browserify lib/index.js -g babelify -g aliasify -g declareify --outfile public/index.js -v",
+    "build-extension": "browserify lib/background.js -g babelify -g aliasify -g declareify --outfile public/background.js -v",
     "watch-extension": "watchify lib/background.js -g babelify -g aliasify -g declareify --outfile public/background.js -v",
     "build": "npm run build-app && npm run build-extension",
     "watch": "crxify -p ~/.ssh/wtorrent-extension & npm run watch-app & npm run watch-extension"
