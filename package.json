@@ -37,6 +37,7 @@
     "flux": "^2.1.1",
     "keymirror": "^0.1.1",
     "lodash": "^3.10.1",
+    "minifyify": "^7.2.1",
     "node-jsx": "~0.11.0",
     "object-assign": "^4.0.1",
     "parse-torrent": "^5.7.0",
