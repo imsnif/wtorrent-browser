@@ -7,8 +7,6 @@
 .top50 { margin-top:50%; }
 
 .body {
-  width: 100px;
-  max-width: 100px;
   overflow: hidden;
 }
 
@@ -58,11 +56,13 @@ a.editable-click {
 }
 
 body {
-  height: 300px;
   width: 480px;
 }
 
 html {
-  height: 300px;
   width: 480px;
+}
+
+.list-group {
+  margin-bottom: 0px;
 }
