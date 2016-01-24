@@ -1,1 +1,0 @@
-console.error("Error: Cannot find module '/home/aram/code/wtorrent-extension/lib/index.js' from '/home/aram/code/wtorrent-extension'");
