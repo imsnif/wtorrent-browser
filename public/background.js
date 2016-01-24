@@ -7,7 +7,7 @@ function createContextMenu() {
 }
 
 function sendMagnetToApp(info) {
-  chrome.runtime.sendMessage("feghgiehmgcleidejgphkbiplfelpfih", info.linkUrl);
+  chrome.runtime.sendMessage("feghgiehmgcleidejgphkbiplfelpfih", { action: "add", magnetUri: info.linkUrl });
 }
 
 chrome.runtime.onStartup.addListener(createContextMenu);
