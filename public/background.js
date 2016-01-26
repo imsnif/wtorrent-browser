@@ -21,6 +21,7 @@ function cacheState() {
 }
 
 function reportState() {
+  window.currentState = torrentCache;
   Object.keys(torrentCache).forEach(function (torrentId) {
     chrome.runtime.sendMessage(torrentCache[torrentId]);
   });
