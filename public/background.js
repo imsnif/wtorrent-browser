@@ -4,7 +4,7 @@
 var cacheTimer = undefined;
 var reportTimer = undefined;
 
-var torrentCache = {};
+window.torrentCache = {};
 
 function createContextMenu() {
   chrome.contextMenus.create({ "title": "Download with wtorrent", "contexts": ["link"] });
@@ -21,15 +21,14 @@ function cacheState() {
 }
 
 function reportState() {
-  window.currentState = torrentCache;
-  Object.keys(torrentCache).forEach(function (torrentId) {
-    chrome.runtime.sendMessage(torrentCache[torrentId]);
+  Object.keys(window.torrentCache).forEach(function (torrentId) {
+    chrome.runtime.sendMessage(window.torrentCache[torrentId]);
   });
   reportTimer = setTimeout(reportState, 1000);
 }
 
 function cacheAction(message) {
-  torrentCache[message.data.infoHash] = message;
+  window.torrentCache[message.data.infoHash] = message;
 }
 
 chrome.runtime.onStartup.addListener(createContextMenu);
