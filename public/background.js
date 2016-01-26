@@ -4,6 +4,12 @@
 var reportTimer = undefined;
 
 window.torrentCache = {};
+window.clientData = {
+  downloadSpeed: 0,
+  uploadSpeed: 0,
+  downloadThrottle: 0,
+  uploadThrottle: 0
+};
 
 function createContextMenu() {
   chrome.contextMenus.create({ "title": "Download with wtorrent", "contexts": ["link"] });
@@ -14,15 +20,27 @@ function sendMagnetToApp(info) {
   chrome.runtime.sendMessage("feghgiehmgcleidejgphkbiplfelpfih", { action: "add", magnetUri: info.linkUrl });
 }
 
+function reportClientState() {
+  var recipient = "client";
+  var action = "update";
+  var data = window.clientData;
+  chrome.runtime.sendMessage({ recipient: recipient, action: action, data: data });
+}
+
 function reportState() {
   Object.keys(window.torrentCache).forEach(function (torrentId) {
     chrome.runtime.sendMessage(window.torrentCache[torrentId]);
   });
+  reportClientState();
   reportTimer = setTimeout(reportState, 1000);
 }
 
 function cacheAction(message) {
-  window.torrentCache[message.data.infoHash] = message;
+  if (message.recipient === "torrent") {
+    window.torrentCache[message.data.infoHash] = message;
+  } else if (message.recipient === "client" && message.action === "update") {
+    window.clientData = message.data;
+  }
 }
 
 chrome.runtime.onStartup.addListener(createContextMenu);
