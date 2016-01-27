@@ -28,8 +28,15 @@
    height: 5px;
 }
 
+.clientSection {
+  background-color: lightGray;
+  margin: 0;
+  border-width: thin;
+  border-top-style: solid;
+}
+
 .noTorrents {
-  background-color: lightgray;
+  background-color: #dff0d8;
   line-height: 2;
   text-align: center;
   font-size: 20px;
