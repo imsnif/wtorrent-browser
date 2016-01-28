@@ -4,6 +4,11 @@
   "minimum_chrome_version": "33",
   "version": "1.0",
   "description": "wtorrent-frontend",
+  "icons": { 
+    "16": "img/logo16.png",
+    "48": "img/logo48.png",
+    "128": "img/logo128.png" 
+  },  
   "background": {
     "scripts": [ "background.js" ]
   },
