@@ -75,10 +75,10 @@ exports.chromeExtension = chromeExtension;
 exports.default = function (store) {
   chrome.contextMenus.create({ "title": "Downlaod with wtorrent", "contexts": ["link"] });
   chrome.contextMenus.onClicked.addListener(function (info) {
-    chrome.runtime.sendMessage("feghgiehmgcleidejgphkbiplfelpfih", (0, _torrentActions.addTorrent)({ magnetUri: info.linkUrl }));
+    chrome.runtime.sendMessage("feghgiehmgcleidejgphkbiplfelpfih", (0, _torrentActions.addTorrent)(info.linkUrl));
   });
 
-  chrome.runtime.onMessage(function (message, sender, sendResponse) {
+  chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     // Send current state whenever the popup requests it
     sendResponse(store.getState());
   });
@@ -177,7 +177,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var torrent = function torrent(state, action) {
   switch (action.type) {
     case 'ADD_TORRENT':
-      var infoHash = (0, _parseTorrent2.default)(action.magnetUri.infoHash);
+      var infoHash = (0, _parseTorrent2.default)(action.magnetUri).infoHash;
       return { infoHash: infoHash };
     case 'UPDATE_TORRENT':
       if (state.infoHash !== action.infoHash) return state;
