@@ -75,6 +75,7 @@ exports.chromeExtension = chromeExtension;
 exports.default = function (store) {
   chrome.contextMenus.create({ "title": "Downlaod with wtorrent", "contexts": ["link"] });
   chrome.contextMenus.onClicked.addListener(function (info) {
+    store.dispatch((0, _torrentActions.addTorrent)(info.linkUrl));
     chrome.runtime.sendMessage("feghgiehmgcleidejgphkbiplfelpfih", (0, _torrentActions.addTorrent)(info.linkUrl));
   });
 
@@ -174,20 +175,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+var torrentMetadata = function torrentMetadata(torrent) {
+  return {
+    infoHash: torrent.infoHash,
+    downloaded: torrent.downloaded,
+    uploaded: torrent.uploaded,
+    downloadSpeed: torrent.downloadSpeed,
+    uploadSpeed: torrent.uploadSpeed,
+    progress: torrent.progress,
+    name: torrent.name
+  };
+};
 var torrent = function torrent(state, action) {
   switch (action.type) {
     case 'ADD_TORRENT':
       var infoHash = (0, _parseTorrent2.default)(action.magnetUri).infoHash;
       return { infoHash: infoHash };
     case 'UPDATE_TORRENT':
-      if (state.infoHash !== action.infoHash) return state;
+      if (state.infoHash !== action.data.infoHash) return state;
       var status = action.data.progress === 1 ? "done" : "inProgress";
-      return Object.assign({ status: status }, action.data);
+      return Object.assign({ status: status }, torrentMetadata(action.data));
     case 'REMOVE_TORRENT':
-      if (state.infoHash !== action.infoHash) return state;
-      return Object.assign({ status: "pending" }, action.data);
+      if (state.infoHash !== action.data.infoHash) return state;
+      return Object.assign({ status: "pending" }, torrentMetadata(action.data));
     case 'DELETE_TORRENT':
-      if (state.infoHash !== action.infoHash) return true;
+      if (state.infoHash !== action.data.infoHash) return true;
       return false;
     default:
       return state;
