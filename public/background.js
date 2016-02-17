@@ -83,10 +83,11 @@ exports.default = function (store) {
     // Send current state whenever the popup requests it
     sendResponse(store.getState());
   });
-  chrome.runtime.onMessageExternal.addListener(function (message) {
-    // TODO: verify
-    store.dispatch(message);
-    chrome.runtime.sendMessage(message);
+  chrome.runtime.onMessageExternal.addListener(function (message, sender) {
+    if (sender.id === "feghgiehmgcleidejgphkbiplfelpfih") {
+      store.dispatch(message);
+      chrome.runtime.sendMessage(message);
+    }
   });
 };
 
