@@ -197,7 +197,7 @@ var torrent = function torrent(state, action) {
       infoHash = torrent.infoHash;
       name = torrent.name;
       status = "pending";
-      return { infoHash: infoHash, name: name, status: "pending" };
+      return { infoHash: infoHash, name: name, status: status };
     case 'UPDATE_TORRENT':
       if (state.infoHash !== action.data.infoHash) return state;
       status = action.data.progress !== undefined ? action.data.progress === 1 ? "done" : "inProgress" : "pending";
