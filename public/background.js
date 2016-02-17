@@ -38,12 +38,12 @@ function updateTorrent(torrent) {
   return { type: 'UPDATE_TORRENT', data: torrent };
 }
 
-function removeTorrent(torrent) {
-  return { type: 'REMOVE_TORRENT', data: torrent };
+function removeTorrent(torrentId) {
+  return { type: 'REMOVE_TORRENT', data: torrentId };
 }
 
-function deleteTorrent(torrent) {
-  return { type: 'DELETE_TORRENT', data: torrent };
+function deleteTorrent(torrentId) {
+  return { type: 'DELETE_TORRENT', data: torrentId };
 }
 
 },{}],3:[function(require,module,exports){
@@ -76,12 +76,11 @@ exports.default = function (store) {
   chrome.contextMenus.create({ "title": "Downlaod with wtorrent", "contexts": ["link"] });
   chrome.contextMenus.onClicked.addListener(function (info) {
     store.dispatch((0, _torrentActions.addTorrent)(info.linkUrl));
-    chrome.runtime.sendMessage("feghgiehmgcleidejgphkbiplfelpfih", (0, _torrentActions.addTorrent)(info.linkUrl));
   });
 
   chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    // Send current state whenever the popup requests it
-    sendResponse(store.getState());
+    if (message === "getState") return sendResponse(store.getState());
+    store.dispatch(message);
   });
   chrome.runtime.onMessageExternal.addListener(function (message, sender) {
     if (sender.id === "feghgiehmgcleidejgphkbiplfelpfih") {
@@ -197,10 +196,10 @@ var torrent = function torrent(state, action) {
       var status = action.data.progress === 1 ? "done" : "inProgress";
       return Object.assign({ status: status }, torrentMetadata(action.data));
     case 'REMOVE_TORRENT':
-      if (state.infoHash !== action.data.infoHash) return state;
-      return Object.assign({ status: "pending" }, torrentMetadata(action.data));
+      if (state.infoHash !== action.data) return state;
+      return Object.assign({ status: "pending" }, state);
     case 'DELETE_TORRENT':
-      if (state.infoHash !== action.data.infoHash) return true;
+      if (state.infoHash !== action.data) return true;
       return false;
     default:
       return state;
