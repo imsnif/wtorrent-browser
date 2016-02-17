@@ -187,13 +187,20 @@ var torrentMetadata = function torrentMetadata(torrent) {
   };
 };
 var torrent = function torrent(state, action) {
+  var torrent = undefined,
+      infoHash = undefined,
+      name = undefined,
+      status = undefined;
   switch (action.type) {
     case 'ADD_TORRENT':
-      var infoHash = (0, _parseTorrent2.default)(action.magnetUri).infoHash;
-      return { infoHash: infoHash };
+      torrent = (0, _parseTorrent2.default)(action.magnetUri);
+      infoHash = torrent.infoHash;
+      name = torrent.name;
+      status = "pending";
+      return { infoHash: infoHash, name: name, status: "pending" };
     case 'UPDATE_TORRENT':
       if (state.infoHash !== action.data.infoHash) return state;
-      var status = action.data.progress === 1 ? "done" : "inProgress";
+      status = action.data.progress !== undefined ? action.data.progress === 1 ? "done" : "inProgress" : "pending";
       return Object.assign({ status: status }, torrentMetadata(action.data));
     case 'REMOVE_TORRENT':
       if (state.infoHash !== action.data) return state;
