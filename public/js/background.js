@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(_chromeExtension.chromeExtension));
 (0, _chromeExtension2.default)(store);
 
-},{"./middleware/chromeExtension":13,"./reducers":16,"redux":474}],13:[function(require,module,exports){
+},{"./middleware/chromeExtension":13,"./reducers":16,"redux":477}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
