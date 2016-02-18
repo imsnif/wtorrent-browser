@@ -5,12 +5,8 @@
   "main": "server.js",
   "scripts": {
     "postinstall": "browserinc",
-    "watch-app": "watchify lib/app.js -g babelify -g aliasify --outfile public/js/bundle.js -v",
-    "build-app": "browserify lib/app.js -g babelify -g aliasify --outfile public/js/bundle.js -v",
-    "build-extension": "browserify lib/background.js -g babelify -g aliasify -g declareify --outfile public/js/background.js -v",
-    "watch-extension": "watchify lib/background.js -g babelify -g aliasify -g declareify --outfile public/js/background.js -v",
-    "build": "npm run build-app && npm run build-extension && crx pack ./public -o ./extension.crx -p ~/.ssh/wtorrent-extension",
-    "watch": "crxify -p ~/.ssh/wtorrent-extension & npm run watch-app & npm run watch-extension"
+    "watch": "watchify -g babelify -g aliasify -g declareify -p [ factor-bundle -o public/js/app.js -o public/js/background.js ] lib/app.js lib/background.js --outfile public/js/common.js -v & crxify -p ~/.ssh/wtorrent-extension",
+    "build": "browserify -g babelify -g aliasify -g declareify -p [ factor-bundle -o public/js/app.js -o public/js/background.js ] lib/app.js lib/background.js --outfile public/js/common.js && crx pack ./public -o ./extension.crx -p ~/.ssh/wtorrent-extension"
   },
   "author": "Aram Drevekenin",
   "license": "MIT",
@@ -36,6 +32,8 @@
     "chromiumify": "^9.0.0",
     "crx": "^3.0.3",
     "cssify": "^1.0.1",
+    "declareify": "^2.0.0",
+    "factor-bundle": "^2.5.0",
     "flux": "^2.1.1",
     "keymirror": "^0.1.1",
     "lodash": "^3.10.1",
