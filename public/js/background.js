@@ -1,28 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var files = {
-  '/etc/resolv.conf': 'nameserver 8.8.8.8\nnameserver 8.8.4.4\n',
-  '/etc/hosts': '127.0.0.1 localhost\n'
-};
-
-exports.readFile = function (path, options, callback) {
-  if (typeof options === 'function') {
-    callback = options;
-    options = null;
-  }
-  if (typeof files[path] === 'string') {
-    setTimeout(callback.bind(null, null, files[path]), 0);
-  } else {
-    var e = new Error('ENOENT: ' + path);
-    e.code = 'ENOENT';
-    setTimeout(callback.bind(null, e), 0);
-  }
-};
-
-},{}],2:[function(require,module,exports){
-'use strict';
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -46,7 +24,7 @@ function deleteTorrent(torrentId) {
   return { type: 'DELETE_TORRENT', data: torrentId };
 }
 
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 'use strict';
 
 var _redux = require('redux');
@@ -64,7 +42,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(_chromeExtension.chromeExtension));
 (0, _chromeExtension2.default)(store);
 
-},{"./middleware/chromeExtension":4,"./reducers":6,"redux":52}],4:[function(require,module,exports){
+},{"./middleware/chromeExtension":3,"./reducers":5,"redux":53}],3:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -106,7 +84,7 @@ function chromeExtension(store) {
   };
 }
 
-},{"../actions/torrent-actions":2}],5:[function(require,module,exports){
+},{"../actions/torrent-actions":1}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -134,7 +112,7 @@ var client = function client() {
 
 exports.default = client;
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -160,7 +138,7 @@ var torrentApp = (0, _redux.combineReducers)({
 
 exports.default = torrentApp;
 
-},{"./client":5,"./torrents":7,"redux":52}],7:[function(require,module,exports){
+},{"./client":4,"./torrents":6,"redux":53}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -239,7 +217,7 @@ var torrents = function torrents() {
 
 exports.default = torrents;
 
-},{"parse-torrent":30}],8:[function(require,module,exports){
+},{"parse-torrent":31}],7:[function(require,module,exports){
 'use strict';
 
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -359,7 +337,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64;
 })(typeof exports === 'undefined' ? undefined.base64js = {} : exports);
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -367,7 +345,7 @@ module.exports = {
   decode: require('./lib/decode')
 };
 
-},{"./lib/decode":10,"./lib/encode":12}],10:[function(require,module,exports){
+},{"./lib/decode":9,"./lib/encode":11}],9:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -477,7 +455,7 @@ decode.bytes = function () {
 module.exports = decode;
 
 }).call(this,require("buffer").Buffer)
-},{"./dict":11,"buffer":15}],11:[function(require,module,exports){
+},{"./dict":10,"buffer":14}],10:[function(require,module,exports){
 "use strict";
 
 var Dict = module.exports = function Dict() {
@@ -497,7 +475,7 @@ Dict.prototype.binarySet = function binarySet(key, value) {
   this[key] = value;
 };
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -599,7 +577,7 @@ encode.list = function (buffers, data) {
 module.exports = encode;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":15}],13:[function(require,module,exports){
+},{"buffer":14}],12:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -625,10 +603,10 @@ module.exports = function blobToBuffer(blob, cb) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":15}],14:[function(require,module,exports){
+},{"buffer":14}],13:[function(require,module,exports){
 "use strict";
 
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function (global){
 /*!
  * The buffer module from node.js, for the browser.
@@ -2145,7 +2123,7 @@ function blitBuffer(src, dst, offset, length) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"base64-js":8,"ieee754":23,"isarray":16}],16:[function(require,module,exports){
+},{"base64-js":7,"ieee754":24,"isarray":15}],15:[function(require,module,exports){
 'use strict';
 
 var toString = {}.toString;
@@ -2154,7 +2132,7 @@ module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],17:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 "use strict";
 
 module.exports = {
@@ -2217,7 +2195,1294 @@ module.exports = {
   "511": "Network Authentication Required"
 };
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
+(function (process){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+var util = require('util');
+var Buffer = require('buffer').Buffer;
+var Stream = require('stream').Stream;
+var constants = require('constants');
+var p = require('chrome-path');
+var Readable = Stream.Readable;
+var Writable = Stream.Writable;
+
+var FILESYSTEM_DEFAULT_SIZE = 250 * 1024 * 1024; // 250MB
+var DEBUG = false;
+
+var O_APPEND = constants.O_APPEND || 0;
+var O_CREAT = constants.O_CREAT || 0;
+var O_EXCL = constants.O_EXCL || 0;
+var O_RDONLY = constants.O_RDONLY || 0;
+var O_RDWR = constants.O_RDWR || 0;
+var O_SYNC = constants.O_SYNC || 0;
+var O_TRUNC = constants.O_TRUNC || 0;
+var O_WRONLY = constants.O_WRONLY || 0;
+var fds = {};
+
+window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+
+function nullCheck(path, callback) {
+  if (('' + path).indexOf('\u0000') !== -1) {
+    var er = new Error('Path must be a string without null bytes.');
+    if (!callback) {
+      throw er;
+    }
+    process.nextTick(function () {
+      callback(er);
+    });
+    return false;
+  }
+  return true;
+}
+
+function maybeCallback(cb) {
+  return util.isFunction(cb) ? cb : rethrow();
+}
+
+function makeCallback(cb) {
+  if (util.isNullOrUndefined(cb)) {
+    return rethrow();
+  }
+
+  if (!util.isFunction(cb)) {
+    throw new TypeError('callback must be a function');
+  }
+
+  return function () {
+    return cb.apply(null, arguments);
+  };
+}
+
+function rethrow() {
+  // Only enable in debug mode. A backtrace uses ~1000 bytes of heap space and
+  // is fairly slow to generate.
+  if (DEBUG) {
+    // eslint-disable-line
+    var backtrace = new Error();
+    return function (err) {
+      if (err) {
+        backtrace.stack = err.name + ': ' + err.message + backtrace.stack.substr(backtrace.name.length);
+        err = backtrace;
+        throw err;
+      }
+    };
+  }
+}
+
+function resolve(path) {
+  // Allow null pass through
+  if (path === null) {
+    return null;
+  }
+  if (typeof path === 'undefined') {
+    return null;
+  }
+  // Don't let anything but strings be passed as on
+  if (typeof path !== 'string') {
+    throw Error('Cannot resolve: Paths must be strings : ' + path.toString());
+  }
+  var retString = path;
+  if (retString[0] === '/') {
+    retString = retString.slice(1);
+  }
+  if (retString[retString.length - 1] === '/') {
+    retString = retString.slice(0, retString.length - 1);
+  }
+  return retString;
+}
+
+function assertEncoding(encoding) {
+  if (encoding && !Buffer.isEncoding(encoding)) {
+    throw new Error('Unknown encoding: ' + encoding);
+  }
+}
+
+function modeNum(m, def) {
+  if (util.isNumber(m)) {
+    return m;
+  }
+  if (util.isString(m)) {
+    return parseInt(m, 8);
+  }
+  if (def) {
+    return modeNum(def);
+  }
+  return undefined;
+}
+
+exports.chown = function (path, uid, gid, callback) {
+  resolve(path);
+  callback = makeCallback(callback);
+  if (!nullCheck(path, callback)) return;
+
+  exports.exists(path, function (exists) {
+    if (exists) {
+      callback();
+    } else {
+      callback('File does not exist');
+    }
+  });
+};
+
+exports.utimes = function (name, now, mtime, cb) {
+  cb();
+};
+
+exports.fchown = function (fd, uid, gid, callback) {
+  exports.chown(fd.fullPath, uid, gid, callback);
+};
+
+exports.chmod = function (path, mode, callback) {
+  resolve(path);
+  callback = makeCallback(callback);
+  if (!nullCheck(path, callback)) return;
+
+  exports.exists(path, function (exists) {
+    if (exists) {
+      callback();
+    } else {
+      callback('File does not exist');
+    }
+  });
+};
+
+exports.fchmod = function (fd, mode, callback) {
+  exports.chmod(fd.fullPath, mode, callback);
+};
+
+exports.exists = function (path, callback) {
+  if (path === '/') {
+    callback(true);
+    return;
+  }
+  path = resolve(path);
+  window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+    cfs.root.getFile(path, {}, function (fileEntry) {
+      setTimeout(callback, 0, true);
+    }, function () {
+      cfs.root.getDirectory(path, {}, function (dirEntry) {
+        setTimeout(callback, 0, true);
+      }, function () {
+        callback(false);
+      });
+    });
+  }, function () {
+    setTimeout(callback, 0, false);
+  });
+};
+
+exports.mkdir = function (path, mode, callback) {
+  path = resolve(path);
+  if (util.isFunction(mode)) callback = mode;
+  callback = makeCallback(callback);
+  if (!nullCheck(path, callback)) return;
+
+  exports.exists(path, function (exists) {
+    if (exists) {
+      var err = new Error();
+      err.code = 'EEXIST';
+      err.path = path;
+      callback(err);
+    } else {
+      exports.exists(p.dirname(path), function (exists) {
+        if (exists || p.dirname(path) === '.') {
+          window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+            cfs.root.getDirectory(path, { create: true }, function (dirEntry) {
+              setTimeout(callback, 0);
+            }, callback);
+          }, callback);
+        } else {
+          var enoent = new Error();
+          enoent.code = 'ENOENT';
+          enoent.path = path;
+          callback(enoent);
+        }
+      });
+    }
+  });
+};
+
+exports.rmdir = function (path, callback) {
+  if (path === '/') {
+    var permerr = new Error();
+    permerr.code = 'EPERM';
+    callback(permerr);
+    return;
+  }
+  resolve(path);
+  callback = maybeCallback(callback);
+  if (!nullCheck(path, callback)) return;
+
+  window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+    cfs.root.getDirectory(path, {}, function (dirEntry) {
+      dirEntry.remove(function () {
+        callback();
+      }, function (err) {
+        if (err.name === 'NotFoundError') {
+          var entryerr = new Error();
+          entryerr.code = 'ENOENT';
+          entryerr.path = path;
+          callback(entryerr);
+        } else {
+          callback(err);
+        }
+      });
+    }, function (err) {
+      if (err.name === 'NotFoundError') {
+        var entryerr = new Error();
+        entryerr.code = 'ENOENT';
+        entryerr.path = path;
+        callback(entryerr);
+      } else {
+        callback(err);
+      }
+    });
+  }, callback);
+};
+
+exports.readdir = function (path, callback) {
+  resolve(path);
+  window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+    cfs.root.getDirectory(path, {}, function (dirEntry) {
+      var dirReader = dirEntry.createReader();
+      dirReader.readEntries(function (entries) {
+        var fullPathList = [];
+        for (var i = 0; i < entries.length; i++) {
+          fullPathList.push(entries[i].name);
+        }
+        callback(null, fullPathList);
+      }, callback);
+    }, function (err) {
+      if (err.name === 'NotFoundError') {
+        var enoent = new Error();
+        enoent.code = 'ENOENT';
+        callback(enoent);
+      } else {
+        callback(err);
+      }
+    });
+  }, callback);
+};
+
+exports.rename = function (oldPath, newPath, callback) {
+  callback = makeCallback(callback);
+
+  if (!nullCheck(oldPath, callback)) {
+    return;
+  }
+
+  if (!nullCheck(newPath, callback)) {
+    return;
+  }
+  // Some shennanigans here as folks rename and move
+  // at the same time :/
+  // First we strip the prefixed /
+  oldPath = resolve(oldPath);
+  newPath = resolve(newPath);
+
+  // Then we split the new location to get the name and the too directory
+  var tmpPath = newPath.split('/');
+  var newName = tmpPath.pop();
+  // if the directory happens to be root then we need to supply
+  // a / because gooogle devs
+  var toDirectory = tmpPath.join('/');
+
+  // Leaving us with oldPath the toDirectory and newName
+  window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+    // If root is / then we need a pointer to the root dir?
+    // Think this needs a couple of sun dir tests
+    if (toDirectory === '') {
+      toDirectory = cfs.root;
+    }
+    cfs.root.getFile(oldPath, {}, function (fileEntry) {
+      fileEntry.onerror = callback;
+
+      cfs.root.getDirectory(toDirectory, {}, function (dirEntry) {
+        fileEntry.moveTo(dirEntry, newName);
+        callback();
+      }, callback);
+      fileEntry.moveTo(toDirectory, newName, callback);
+    }, function (err) {
+      // we need to move the directory instead
+      if (err.name === 'TypeMismatchError') {
+        cfs.root.getDirectory('/' + oldPath, {}, function (dirEntry) {
+          dirEntry.moveTo(toDirectory, newName, function () {
+            callback();
+          }, function (err) {
+            callback(err);
+          });
+        });
+      } else {
+        callback(err);
+      }
+    });
+  }, callback);
+};
+
+exports.ftruncate = function (fd, len, callback) {
+  if (util.isFunction(len)) {
+    callback = len;
+    len = 0;
+  } else if (util.isUndefined(len)) {
+    len = 0;
+  }
+  var cb = makeCallback(callback);
+  fd.onerror = cb;
+  fd.onwriteend = function () {
+    cb();
+  };
+  fd.truncate(len);
+};
+
+exports.truncate = function (path, len, callback) {
+  if (util.isObject(path)) {
+    return exports.ftruncate(path, len, callback);
+  }
+  if (util.isFunction(len)) {
+    callback = len;
+    len = 0;
+  } else if (util.isUndefined(len)) {
+    len = 0;
+  }
+
+  callback = maybeCallback(callback);
+  exports.open(path, 'w', function (er, fd) {
+    if (er) return callback(er);
+    fd.onwriteend = function (evt) {
+      if (evt.type !== 'writeend') {
+        callback(evt);
+      } else {
+        callback();
+      }
+    };
+    fd.truncate(len);
+  });
+};
+
+exports.stat = function (path, callback) {
+  path = resolve(path);
+  window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+    var opts = {};
+    cfs.root.getFile(path, opts, function (fileEntry) {
+      fileEntry.file(function (file) {
+        var statval = { dev: 0,
+          mode: '0777',
+          nlink: 0,
+          uid: 0,
+          gid: 0,
+          rdev: 0,
+          ino: 0,
+          size: file.size,
+          atime: null,
+          mtime: file.lastModifiedDate,
+          ctime: null };
+        statval.isDirectory = function () {
+          return false;
+        };
+        statval.isFile = function () {
+          return true;
+        };
+        statval.isSocket = function () {
+          return false;
+        };
+        statval.isBlockDevice = function () {
+          return false;
+        };
+        statval.isCharacterDevice = function () {
+          return false;
+        };
+        statval.isFIFO = function () {
+          return false;
+        };
+        statval.isSymbolicLink = function () {
+          return false;
+        };
+        callback(null, statval);
+      });
+    }, function (err) {
+      if (err.name === 'TypeMismatchError') {
+        cfs.root.getDirectory(path, opts, function (dirEntry) {
+          var statval = { dev: 0,
+            mode: '0777',
+            nlink: 0,
+            uid: 0,
+            gid: 0,
+            rdev: 0,
+            ino: 0,
+            size: 0,
+            atime: null,
+            mtime: new Date(0),
+            ctime: null,
+            blksize: -1,
+            blocks: -1 };
+          statval.isDirectory = function () {
+            return true;
+          };
+          statval.isFile = function () {
+            return false;
+          };
+          statval.isSocket = function () {
+            return false;
+          };
+          statval.isBlockDevice = function () {
+            return false;
+          };
+          statval.isCharacterDevice = function () {
+            return false;
+          };
+          statval.isFIFO = function () {
+            return false;
+          };
+          statval.isSymbolicLink = function () {
+            return false;
+          };
+          callback(null, statval);
+        });
+      } else {
+        callback(err);
+      }
+    });
+  }, callback);
+};
+
+exports.fstat = function (fd, callback) {
+  if (typeof fds[fd.fullPath] === 'undefined') {
+    var ebadf = new Error();
+    ebadf.code = 'EBADF';
+    window.setTimeout(callback, 0, ebadf);
+  } else {
+    exports.stat(fd.fullPath, callback);
+  }
+};
+
+exports.open = function (path, flags, mode, callback) {
+  var isEntry = false;
+  if (!nullCheck(path, callback)) return;
+  if ((typeof path === 'undefined' ? 'undefined' : _typeof(path)) === 'object') {
+    isEntry = true;
+  } else {
+    path = resolve(path);
+  }
+  console.log(path.constructor);
+  flags = flagToString(flags);
+  callback = makeCallback(arguments[arguments.length - 1]);
+  mode = modeNum(mode, 438 /* =0666 */);
+  // Allow for passing of fileentries to support external fs
+  if (isEntry) {
+    if (flags.indexOf('w') > -1 || flags.indexOf('a') > -1) {
+      path.createWriter(function (fileWriter) {
+        fileWriter.flags = flags;
+        fileWriter.fullPath = path.fullPath;
+        fds[fileWriter.fullPath] = {};
+        fds[fileWriter.fullPath].status = 'open';
+        fileWriter.key = fileWriter.fullPath;
+        callback(null, fileWriter);
+      }, callback);
+    } else {
+      path.file(function (file) {
+        file.fullPath = path.fullPath;
+        fds[file.fullPath] = {};
+        fds[file.fullPath].status = 'open';
+        file.key = file.fullPath;
+        callback(null, file);
+      });
+    }
+    return;
+  }
+  window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+    var opts = {};
+    if (flags.indexOf('w') > -1) {
+      opts = { create: true };
+    }
+    if (flags.indexOf('x') > -1) {
+      opts.exclusive = true;
+    }
+    cfs.root.getFile(path, opts, function (fileEntry) {
+      // if its a write then we get the file writer
+      // otherwise we get the file because 'standards'
+      if (flags.indexOf('w') > -1 || flags.indexOf('a') > -1) {
+        fileEntry.createWriter(function (fileWriter) {
+          fileWriter.flags = flags;
+          fileWriter.fullPath = fileEntry.fullPath;
+          fds[fileWriter.fullPath] = {};
+          fds[fileWriter.fullPath].status = 'open';
+          fileWriter.key = fileWriter.fullPath;
+          callback(null, fileWriter);
+        }, callback);
+      } else {
+        fileEntry.file(function (file) {
+          file.fullPath = fileEntry.fullPath;
+          fds[file.fullPath] = {};
+          fds[file.fullPath].status = 'open';
+          file.key = file.fullPath;
+          callback(null, file);
+        });
+      }
+    }, function (err) {
+      if (err.name === 'NotFoundError') {
+        var enoent = new Error();
+        enoent.code = 'ENOENT';
+        callback(enoent);
+      } else if (err.name === 'TypeMismatchError' || err.name === 'SecurityError') {
+        // Work around for directory file descriptor
+        // It's a write on a directory
+        if (flags.indexOf('w') > -1) {
+          var eisdir = new Error();
+          eisdir.code = 'EISDIR';
+          callback(eisdir);
+        } else {
+          var dird = {};
+          dird.fullPath = path;
+          callback(null, dird);
+        }
+      } else if (err.name === 'InvalidModificationError') {
+        var eexists = new Error();
+        eexists.code = 'EEXIST';
+        callback(eexists);
+      } else {
+        callback(err);
+      }
+    });
+  }, callback);
+};
+
+exports.read = function (fd, buffer, offset, length, position, callback) {
+  if (fd === null) {
+    callback(null, 0, '');
+    return;
+  }
+  if (typeof fds[fd.key] === 'undefined') {
+    fds[fd.key].readpos = 0;
+  }
+  if (position !== null) {
+    if (position >= 0) {
+      fds[fd.key].readpos = position;
+    }
+  }
+  if (!util.isBuffer(buffer)) {
+    // fs.read(fd, expected.length, 0, 'utf-8', function (err, str, bytesRead)
+    // legacy string interface (fd, length, position, encoding, callback)
+    var cb = arguments[4];
+    var encoding = arguments[3];
+
+    assertEncoding(encoding);
+
+    position = arguments[2];
+    length = arguments[1];
+    // sbuf = new Buffer(length)
+    offset = 0;
+    callback = function callback(err, bytesRead, data) {
+      if (!cb) return;
+      var str = '';
+      if (fd.type === 'text/plain') {
+        str = data;
+      } else {
+        str = bytesRead > 0 ? buffer.toString(encoding, 0, bytesRead) : ''; // eslint-disable-line
+      }
+      cb(err, str, bytesRead);
+    };
+  }
+  fd.onerror = function (err) {
+    if (err.name === 'NotFoundError') {
+      var enoent = new Error();
+      enoent.code = 'ENOENT';
+      callback(enoent);
+    } else {
+      callback(err);
+    }
+  };
+  if (offset < fds[fd.key].readpos) {
+    offset = fds[fd.key].readpos;
+  }
+  var data = fd.slice(offset, offset + length);
+  var fileReader = new FileReader(); // eslint-disable-line
+  fileReader.onload = function (evt) {
+    var result;
+    if (fd.type === 'text/plain') {
+      result = new Buffer(this.result);
+    } else {
+      result = new Buffer(new Uint8Array(this.result));
+    }
+    result.copy(buffer);
+    fds[fd.key].readpos = offset + length;
+    callback(null, result.length, result);
+  };
+  fileReader.onerror = function (err) {
+    if (err.name === 'NotFoundError') {
+      var enoent = new Error();
+      enoent.code = 'ENOENT';
+      callback(enoent);
+    } else {
+      callback(err);
+    }
+  };
+  // no-op the onprogressevent
+  fileReader.onprogress = function () {};
+  if (fd.type === 'text/plain') {
+    fileReader.readAsText(data);
+  } else {
+    fileReader.readAsArrayBuffer(data);
+  }
+};
+
+exports.readFile = function (path, options, cb) {
+  var callback = maybeCallback(arguments[arguments.length - 1]);
+
+  if (util.isFunction(options) || !options) {
+    options = { encoding: null, flag: 'r' };
+  } else if (util.isString(options)) {
+    options = { encoding: options, flag: 'r' };
+  } else if (!util.isObject(options)) {
+    throw new TypeError('Bad arguments');
+  }
+  var encoding = options.encoding;
+  assertEncoding(encoding);
+  window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+    var opts = {};
+    cfs.root.getFile(path, opts, function (fileEntry) {
+      fileEntry.file(function (file) {
+        fileEntry.onerror = callback;
+        var fileReader = new FileReader(); // eslint-disable-line
+        fileReader.onload = function (evt) {
+          if (options.encoding === null) {
+            window.setTimeout(callback, 0, null, new Buffer(this.result, 'binary'));
+          } else if (options.encoding === 'hex') {
+            window.setTimeout(callback, 0, null, new Buffer(this.result).toString('hex'));
+          } else {
+            window.setTimeout(callback, 0, null, this.result);
+          }
+        };
+        fileReader.onerror = function (evt) {
+          callback(evt, null);
+        };
+
+        if (file.type === 'text/plain') {
+          fileReader.readAsText(file);
+        } else {
+          fileReader.readAsArrayBuffer(file);
+        }
+      });
+    }, function (err) {
+      if (err.name === 'TypeMismatchError') {
+        var eisdir = new Error();
+        eisdir.code = 'EISDIR';
+        callback(eisdir);
+      } else {
+        callback(err);
+      }
+    });
+  }, callback);
+};
+
+exports.write = function (fd, buffer, offset, length, position, callback) {
+  if (util.isBuffer(buffer)) {
+    if (util.isFunction(position)) {
+      callback = position;
+      position = null;
+    }
+    callback = maybeCallback(callback);
+
+    fd.onerror = callback;
+    fd.onprogress = function () {};
+    var tmpbuf = buffer.slice(offset, length);
+    var bufblob = new Blob([tmpbuf], { type: 'application/octet-binary' }); // eslint-disable-line
+    if (fd.readyState > 0) {
+      // when the ready state is greater than 1 we have to wait until the write end has finished
+      // but this causes the stream to keep sending write events.
+      // So currently fs and writestream have there own implementations
+      fd.onwriteend = function () {
+        if (position !== null) {
+          fd.seek(position);
+        }
+        if (fd.flags.indexOf('a') > -1) {
+          fd.seek(fd.length);
+        }
+        fd.write(bufblob);
+        callback(null, tmpbuf.length, tmpbuf);
+      };
+    } else {
+      if (position !== null) {
+        fd.seek(position);
+      }
+      if (fd.flags.indexOf('a') > -1) {
+        fd.seek(fd.length);
+      }
+      fd.write(bufblob);
+      if (typeof callback === 'function') {
+        callback(null, tmpbuf.length, tmpbuf);
+      }
+    }
+  } else {
+    if (util.isString(buffer)) {
+      buffer += '';
+    }
+    if (!util.isFunction(position)) {
+      if (util.isFunction(offset)) {
+        position = offset;
+        offset = null;
+      } else {
+        position = length;
+      }
+      length = 'utf8';
+    }
+    callback = maybeCallback(position);
+    fd.onerror = callback;
+    var blob = new Blob([buffer], { type: 'text/plain' }); // eslint-disable-line
+
+    var buf = new Buffer(buffer);
+
+    if (fd.readyState > 0) {
+      fd.onwriteend = function () {
+        if (position !== null) {
+          fd.seek(position);
+        }
+        fd.write(blob);
+        if (typeof callback === 'function') {
+          callback(null, buf.length);
+        }
+      };
+    } else {
+      if (position !== null) {
+        fd.seek(position);
+      }
+      fd.write(blob);
+      if (typeof callback === 'function') {
+        callback(null, buf.length);
+      }
+    }
+  }
+};
+
+exports.unlink = function (fd, callback) {
+  var path = resolve(fd);
+  exports.exists(path, function (exists) {
+    if (exists) {
+      window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+        cfs.root.getFile(path, {}, function (fileEntry) {
+          fileEntry.remove(callback);
+        }, function (err) {
+          if (err.name === 'TypeMismatchError') {
+            var eisdir = new Error();
+            eisdir.code = 'EISDIR';
+            eisdir.path = path;
+            callback(eisdir);
+          } else {
+            callback(err);
+          }
+        });
+      }, callback);
+    } else {
+      var enoent = new Error();
+      enoent.code = 'ENOENT';
+      enoent.path = path;
+      callback(enoent);
+    }
+  });
+};
+
+exports.writeFile = function (path, data, options, cb) {
+  var callback = maybeCallback(arguments[arguments.length - 1]);
+
+  if (util.isFunction(options) || !options) {
+    options = { encoding: 'utf8', mode: 438, flag: 'w' };
+  } else if (util.isString(options)) {
+    options = { encoding: options, mode: 438, flag: 'w' };
+  } else if (!util.isObject(options)) {
+    throw new TypeError('Bad arguments');
+  }
+
+  assertEncoding(options.encoding);
+
+  var flag = options.flag || 'w'; // eslint-disable-line
+  window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+    var opts = {};
+    if (flag.indexOf('w') > -1) {
+      opts = { create: true };
+    }
+    if (flag.indexOf('x') > -1) {
+      opts.exclusive = true;
+    }
+    cfs.root.getFile(path, opts, function (fileEntry) {
+      // if its a write then we get the file writer
+      // otherwise we get the file because 'standards'
+      if (flag.indexOf('w') > -1) {
+        fileEntry.createWriter(function (fileWriter) {
+          fileWriter.onerror = callback;
+          // make sure we have an empty file
+          // fileWriter.truncate(0)
+          if (typeof callback === 'function') {
+            fileWriter.onwriteend = function (evt) {
+              window.setTimeout(callback, 0);
+            };
+          } else {
+            fileWriter.onwriteend = function () {};
+          }
+          fileWriter.onprogress = function () {};
+          var blob;
+          if (typeof data === 'string') {
+            blob = new Blob([data], { type: 'text/plain' }); // eslint-disable-line
+          } else {
+              if (options.encoding === 'hex') {
+                // convert the hex data to a string then save it.
+                blob = new Blob([new Buffer(data, 'hex').toString('hex')], { type: 'text/plain' }); // eslint-disable-line
+              } else {
+                  blob = new Blob([data], { type: 'application/octet-binary' }); // eslint-disable-line
+                }
+            }
+          fileWriter.write(blob);
+        }, function (evt) {
+          if (evt.type !== 'writeend') {
+            callback();
+          } else {
+            callback();
+          }
+        });
+      } else {
+        var err = new Error();
+        err.code = 'UNKNOWN';
+        err.message = 'flag not supported: ' + flag;
+        callback(err);
+      }
+    }, function (err) {
+      if (err.name === 'TypeMismatchError') {
+        var eisdir = Error();
+        eisdir.code = 'EISDIR';
+        callback(eisdir);
+      } else {
+        callback(err);
+      }
+    });
+  }, function (evt) {
+    if (evt.type !== 'writeend') {
+      callback(evt);
+    } else {
+      callback();
+    }
+  });
+};
+
+exports.appendFile = function (path, data, options, cb) {
+  var callback = maybeCallback(arguments[arguments.length - 1]);
+
+  if (util.isFunction(options) || !options) {
+    options = { encoding: 'utf8', mode: 438, flag: 'a' };
+  } else if (util.isString(options)) {
+    options = { encoding: options, mode: 438, flag: 'a' };
+  } else if (!util.isObject(options)) {
+    throw new TypeError('Bad arguments');
+  }
+
+  var flag = options.flag || 'a'; // eslint-disable-line
+
+  window.requestFileSystem(window.PERSISTENT, FILESYSTEM_DEFAULT_SIZE, function (cfs) {
+    var opts = {};
+    if (flag === 'a') {
+      opts = { create: true };
+    }
+    cfs.root.getFile(path, opts, function (fileEntry) {
+      // if its a write then we get the file writer
+      // otherwise we get the file because 'standards'
+      if (flag === 'a') {
+        fileEntry.createWriter(function (fileWriter) {
+          fileWriter.onerror = callback;
+          if (typeof callback === 'function') {
+            fileWriter.onwriteend = function (evt) {
+              window.setTimeout(callback, 0, null, evt);
+            };
+          } else {
+            fileWriter.onwriteend = function () {};
+          }
+          fileWriter.onprogress = function () {};
+          fileWriter.seek(fileWriter.length);
+          var blob = new Blob([data], { type: 'text/plain' }); // eslint-disable-line
+          fileWriter.write(blob);
+        }, callback);
+      } else {
+        callback('incorrect flag');
+      }
+    }, callback);
+  }, callback);
+};
+
+exports.fsync = function (fd, cb) {
+  if (!cb) cb = function cb() {};
+  if (typeof fds[fd.fullPath] === 'undefined') {
+    var ebadf = new Error();
+    ebadf.code = 'EBADF';
+    window.setTimeout(cb, 0, ebadf);
+  } else {
+    window.setTimeout(cb, 0);
+  }
+};
+
+exports.close = function (fd, callback) {
+  delete fds[fd.fullPath];
+  var cb = makeCallback(callback);
+  if (fd.readyState === 0) {
+    cb(null);
+  }
+  fd.onwriteend = function (progressinfo) {
+    cb(null, progressinfo);
+  };
+};
+
+exports.createReadStream = function (path, options) {
+  return new ReadStream(path, options);
+};
+
+util.inherits(ReadStream, Readable);
+exports.ReadStream = ReadStream;
+
+function ReadStream(path, options) {
+  if (!(this instanceof ReadStream)) {
+    return new ReadStream(path, options);
+  }
+
+  // debugger // eslint-disable-line
+  // a little bit bigger buffer and water marks by default
+  options = util._extend({
+    highWaterMark: 33554432 // 1024 * 1024
+  }, options || {});
+
+  Readable.call(this, options);
+
+  this.path = path;
+  this.fd = options.hasOwnProperty('fd') ? options.fd : null;
+  this.flags = options.hasOwnProperty('flags') ? options.flags : 'r';
+  this.mode = options.hasOwnProperty('mode') ? options.mode : 438; /* =0666 */
+
+  this.start = options.hasOwnProperty('start') ? options.start : 0;
+  this.end = options.hasOwnProperty('end') ? options.end : 0;
+  this.autoClose = options.hasOwnProperty('autoClose') ? options.autoClose : true;
+  this.pos = undefined;
+
+  if (!util.isUndefined(this.start)) {
+    if (!util.isNumber(this.start)) {
+      throw TypeError('start must be a Number');
+    }
+    if (util.isUndefined(this.end)) {
+      this.end = Infinity;
+    } else if (!util.isNumber(this.end)) {
+      throw TypeError('end must be a Number');
+    }
+
+    if (this.start > this.end) {
+      throw new Error('start must be <= end');
+    }
+
+    this.pos = this.start;
+  }
+  if (this.fd === null) {
+    this.pause();
+  }
+
+  if (this.path !== null) {
+    this.open();
+  }
+  this.on('end', function () {
+    if (this.autoClose) {
+      this.destroy();
+    }
+  });
+}
+
+exports.FileReadStream = exports.ReadStream; // support the legacy name
+
+ReadStream.prototype.open = function () {
+  var self = this;
+
+  if (this.flags === null) {
+    this.flags = 'r';
+  }
+
+  exports.open(this.path, this.flags, this.mode, function (er, fd) {
+    if (er) {
+      if (self.autoClose) {
+        self.destroy();
+      }
+      self.emit('error', er);
+      return;
+    }
+    self.resume();
+    self.fd = fd;
+    self.emit('open', fd);
+    self.read();
+  });
+};
+
+ReadStream.prototype._read = function (n) {
+  if (this.fd === null) {
+    return this.once('open', function () {
+      this._read(n);
+    });
+  }
+  if (this.destroyed) {
+    return;
+  }
+
+  if (this.ispaused) {
+    return;
+  }
+
+  if (this.pos > this.fd.size) {
+    return this.push(null);
+  }
+
+  if (this.fd.size === 0) {
+    return this.push(null);
+  }
+  var self = this;
+  // Sketchy implementation that pushes the whole file to the stream
+  // But maybe fd has a size that we can iterate to?
+  var onread = function onread(err, length, data) {
+    if (err) {
+      if (self.autoClose) {
+        self.destroy();
+      }
+      self.emit('error', err);
+    }
+    self.push(data);
+    // self.once('finish', self.close)
+  };
+
+  // calculate the offset so read doesn't carry too much
+  if (this.end === 0) {
+    this.end = this._readableState.highWaterMark;
+  } else {
+    this.end = this.end - this.start + 1;
+  }
+
+  // exports.read(this.fd, new Buffer(this.fd.size), this.start, this.end, 0, onread)
+  exports.read(this.fd, new Buffer(this.fd.size), this.start, this.end, this.pos, onread);
+  this.pos += this._readableState.highWaterMark;
+};
+
+ReadStream.prototype.destroy = function () {
+  if (this.destroyed) {
+    return;
+  }
+  this.destroyed = true;
+  this.close();
+};
+
+ReadStream.prototype.close = function (cb) {
+  var self = this;
+  if (cb) {
+    this.once('close', cb);
+  }
+  if (this.closed) {
+    this.emit('close');
+  }
+  this.closed = true;
+  close();
+  function close(fd) {
+    self.emit('close');
+    self.fd = null;
+  }
+};
+
+exports.createWriteStream = function (path, options) {
+  return new WriteStream(path, options);
+};
+
+util.inherits(WriteStream, Writable);
+exports.WriteStream = WriteStream;
+function WriteStream(path, options) {
+  if (!(this instanceof WriteStream)) {
+    return new WriteStream(path, options);
+  }
+
+  options = options || {};
+
+  Writable.call(this, options);
+
+  this.path = path;
+  this.fd = null;
+
+  this.fd = options.hasOwnProperty('fd') ? options.fd : null;
+  this.flags = options.hasOwnProperty('flags') ? options.flags : 'w';
+  this.mode = options.hasOwnProperty('mode') ? options.mode : 438; /* =0666 */
+
+  this.start = options.hasOwnProperty('start') ? options.start : undefined;
+  this.pos = undefined;
+  this.bytesWritten = 0;
+
+  if (!util.isUndefined(this.start)) {
+    if (!util.isNumber(this.start)) {
+      throw TypeError('start must be a Number');
+    }
+    if (this.start < 0) {
+      throw new Error('start must be >= zero');
+    }
+
+    this.pos = this.start;
+  }
+
+  if (this.fd === null) {
+    this.open();
+  }
+
+  // dispose on finish.
+  this.once('finish', this.close);
+}
+
+exports.FileWriteStream = exports.WriteStream; // support the legacy name
+
+WriteStream.prototype.open = function () {
+  this.writelist = [];
+  this.currentbuffersize = 0;
+  this.tds = 0;
+
+  exports.open(this.path, this.flags, this.mode, function (er, fd) {
+    if (er) {
+      this.destroy();
+      this.emit('error', er);
+      return;
+    }
+    this.fd = fd;
+    if (this.flags.indexOf('a') > -1) {
+      this.fd.seek(this.fd.length);
+    }
+    this.emit('open', fd);
+  }.bind(this));
+};
+WriteStream.prototype.totalsize = 0;
+WriteStream.prototype._write = function (data, encoding, callbk) {
+  if (!util.isBuffer(data)) {
+    return this.emit('error', new Error('Invalid data'));
+  }
+  if (!util.isObject(this.fd)) {
+    return this.once('open', function () {
+      this._write(data, encoding, callbk);
+    });
+  }
+
+  if (this.fd === null) {
+    return this.once('open', function () {
+      this._write(data, encoding, callbk);
+    });
+  }
+
+  var callback = maybeCallback(callbk);
+  this.toCall = callback;
+  this.isWriting = false;
+  var self = this;
+
+  this.fd.onerror = function (err) {
+    if (err.name === 'TypeMismatchError') {
+      // It's a write on a directory
+      if (self.flags.indexOf('w')) {
+        var eisdir = new Error();
+        eisdir.code = 'EISDIR';
+        callback(eisdir);
+      } else {
+        callback(err);
+      }
+    } else if (err.name === 'InvalidModificationError') {
+      var eexists = new Error();
+      eexists.code = 'EEXIST';
+      callback(eexists);
+    } else {
+      callback(err);
+    }
+  };
+  this.totalsize += data.length;
+  this.writelist.push(data);
+  this.currentbuffersize += data.length;
+  callback(null, data.length);
+
+  if (this.currentbuffersize > 134217728) {
+    this._intenalwrite();
+  }
+
+  this.tds += data.length;
+};
+
+WriteStream.prototype._intenalwrite = function () {
+  // filewriter isn't setup so lets ignore it and
+  // see if we try again
+  if (this.fd === null) {
+    return;
+  }
+
+  if (this.fd.readystate > 0) {
+    return;
+  }
+  var dataToWrite = Buffer.concat(this.writelist);
+  this.writelist = [];
+  this.currentbuffersize = 0;
+  var initblob = new Blob([dataToWrite]); // eslint-disable-line
+  if (typeof this.fd.write !== 'undefined') {
+    this.fd.write(initblob);
+  }
+};
+
+WriteStream.prototype.destroy = ReadStream.prototype.destroy;
+WriteStream.prototype.close = function (cb) {
+  this._intenalwrite();
+  var self = this;
+  if (cb) {
+    this.once('close', cb);
+  }
+  if (this.closed) {
+    this.emit('close');
+  }
+  this.closed = true;
+  close();
+  function close(fd) {
+    self.emit('close');
+    self.fd = null;
+  }
+};
+
+// There is no shutdown() for files.
+WriteStream.prototype.destroySoon = WriteStream.prototype.end;
+
+function flagToString(flag) {
+  // Only mess with strings
+  if (util.isString(flag)) {
+    return flag;
+  }
+
+  switch (flag) {
+    case O_RDONLY:
+      return 'r';
+    case O_RDONLY | O_SYNC:
+      return 'sr';
+    case O_RDWR:
+      return 'r+';
+    case O_RDWR | O_SYNC:
+      return 'sr+';
+
+    case O_TRUNC | O_CREAT | O_WRONLY:
+      return 'w';
+    case O_TRUNC | O_CREAT | O_WRONLY | O_EXCL:
+      return 'xw';
+
+    case O_TRUNC | O_CREAT | O_RDWR:
+      return 'w+';
+    case O_TRUNC | O_CREAT | O_RDWR | O_EXCL:
+      return 'xw+';
+
+    case O_APPEND | O_CREAT | O_WRONLY:
+      return 'a';
+    case O_APPEND | O_CREAT | O_WRONLY | O_EXCL:
+      return 'xa';
+
+    case O_APPEND | O_CREAT | O_RDWR:
+      return 'a+';
+    case O_APPEND | O_CREAT | O_RDWR | O_EXCL:
+      return 'xa+';
+  }
+
+  throw new Error('Unknown file open flag: ' + flag);
+}
+
+}).call(this,require('_process'))
+},{"_process":33,"buffer":14,"chrome-path":18,"constants":20,"stream":61,"util":74}],18:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2468,7 +3733,7 @@ var substr = 'ab'.substr(-1) === 'b' ? function (str, start, len) {
 };
 
 }).call(this,require('_process'))
-},{"_process":32}],19:[function(require,module,exports){
+},{"_process":33}],19:[function(require,module,exports){
 'use strict';
 
 /**
@@ -2531,6 +3796,217 @@ function config(name) {
 }
 
 },{}],20:[function(require,module,exports){
+module.exports={
+  "O_RDONLY": 0,
+  "O_WRONLY": 1,
+  "O_RDWR": 2,
+  "S_IFMT": 61440,
+  "S_IFREG": 32768,
+  "S_IFDIR": 16384,
+  "S_IFCHR": 8192,
+  "S_IFBLK": 24576,
+  "S_IFIFO": 4096,
+  "S_IFLNK": 40960,
+  "S_IFSOCK": 49152,
+  "O_CREAT": 512,
+  "O_EXCL": 2048,
+  "O_NOCTTY": 131072,
+  "O_TRUNC": 1024,
+  "O_APPEND": 8,
+  "O_DIRECTORY": 1048576,
+  "O_NOFOLLOW": 256,
+  "O_SYNC": 128,
+  "O_SYMLINK": 2097152,
+  "O_NONBLOCK": 4,
+  "S_IRWXU": 448,
+  "S_IRUSR": 256,
+  "S_IWUSR": 128,
+  "S_IXUSR": 64,
+  "S_IRWXG": 56,
+  "S_IRGRP": 32,
+  "S_IWGRP": 16,
+  "S_IXGRP": 8,
+  "S_IRWXO": 7,
+  "S_IROTH": 4,
+  "S_IWOTH": 2,
+  "S_IXOTH": 1,
+  "E2BIG": 7,
+  "EACCES": 13,
+  "EADDRINUSE": 48,
+  "EADDRNOTAVAIL": 49,
+  "EAFNOSUPPORT": 47,
+  "EAGAIN": 35,
+  "EALREADY": 37,
+  "EBADF": 9,
+  "EBADMSG": 94,
+  "EBUSY": 16,
+  "ECANCELED": 89,
+  "ECHILD": 10,
+  "ECONNABORTED": 53,
+  "ECONNREFUSED": 61,
+  "ECONNRESET": 54,
+  "EDEADLK": 11,
+  "EDESTADDRREQ": 39,
+  "EDOM": 33,
+  "EDQUOT": 69,
+  "EEXIST": 17,
+  "EFAULT": 14,
+  "EFBIG": 27,
+  "EHOSTUNREACH": 65,
+  "EIDRM": 90,
+  "EILSEQ": 92,
+  "EINPROGRESS": 36,
+  "EINTR": 4,
+  "EINVAL": 22,
+  "EIO": 5,
+  "EISCONN": 56,
+  "EISDIR": 21,
+  "ELOOP": 62,
+  "EMFILE": 24,
+  "EMLINK": 31,
+  "EMSGSIZE": 40,
+  "EMULTIHOP": 95,
+  "ENAMETOOLONG": 63,
+  "ENETDOWN": 50,
+  "ENETRESET": 52,
+  "ENETUNREACH": 51,
+  "ENFILE": 23,
+  "ENOBUFS": 55,
+  "ENODATA": 96,
+  "ENODEV": 19,
+  "ENOENT": 2,
+  "ENOEXEC": 8,
+  "ENOLCK": 77,
+  "ENOLINK": 97,
+  "ENOMEM": 12,
+  "ENOMSG": 91,
+  "ENOPROTOOPT": 42,
+  "ENOSPC": 28,
+  "ENOSR": 98,
+  "ENOSTR": 99,
+  "ENOSYS": 78,
+  "ENOTCONN": 57,
+  "ENOTDIR": 20,
+  "ENOTEMPTY": 66,
+  "ENOTSOCK": 38,
+  "ENOTSUP": 45,
+  "ENOTTY": 25,
+  "ENXIO": 6,
+  "EOPNOTSUPP": 102,
+  "EOVERFLOW": 84,
+  "EPERM": 1,
+  "EPIPE": 32,
+  "EPROTO": 100,
+  "EPROTONOSUPPORT": 43,
+  "EPROTOTYPE": 41,
+  "ERANGE": 34,
+  "EROFS": 30,
+  "ESPIPE": 29,
+  "ESRCH": 3,
+  "ESTALE": 70,
+  "ETIME": 101,
+  "ETIMEDOUT": 60,
+  "ETXTBSY": 26,
+  "EWOULDBLOCK": 35,
+  "EXDEV": 18,
+  "SIGHUP": 1,
+  "SIGINT": 2,
+  "SIGQUIT": 3,
+  "SIGILL": 4,
+  "SIGTRAP": 5,
+  "SIGABRT": 6,
+  "SIGIOT": 6,
+  "SIGBUS": 10,
+  "SIGFPE": 8,
+  "SIGKILL": 9,
+  "SIGUSR1": 30,
+  "SIGSEGV": 11,
+  "SIGUSR2": 31,
+  "SIGPIPE": 13,
+  "SIGALRM": 14,
+  "SIGTERM": 15,
+  "SIGCHLD": 20,
+  "SIGCONT": 19,
+  "SIGSTOP": 17,
+  "SIGTSTP": 18,
+  "SIGTTIN": 21,
+  "SIGTTOU": 22,
+  "SIGURG": 16,
+  "SIGXCPU": 24,
+  "SIGXFSZ": 25,
+  "SIGVTALRM": 26,
+  "SIGPROF": 27,
+  "SIGWINCH": 28,
+  "SIGIO": 23,
+  "SIGSYS": 12,
+  "SSL_OP_ALL": 2147486719,
+  "SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION": 262144,
+  "SSL_OP_CIPHER_SERVER_PREFERENCE": 4194304,
+  "SSL_OP_CISCO_ANYCONNECT": 32768,
+  "SSL_OP_COOKIE_EXCHANGE": 8192,
+  "SSL_OP_CRYPTOPRO_TLSEXT_BUG": 2147483648,
+  "SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS": 2048,
+  "SSL_OP_EPHEMERAL_RSA": 0,
+  "SSL_OP_LEGACY_SERVER_CONNECT": 4,
+  "SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER": 32,
+  "SSL_OP_MICROSOFT_SESS_ID_BUG": 1,
+  "SSL_OP_MSIE_SSLV2_RSA_PADDING": 0,
+  "SSL_OP_NETSCAPE_CA_DN_BUG": 536870912,
+  "SSL_OP_NETSCAPE_CHALLENGE_BUG": 2,
+  "SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG": 1073741824,
+  "SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG": 8,
+  "SSL_OP_NO_COMPRESSION": 131072,
+  "SSL_OP_NO_QUERY_MTU": 4096,
+  "SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION": 65536,
+  "SSL_OP_NO_SSLv2": 16777216,
+  "SSL_OP_NO_SSLv3": 33554432,
+  "SSL_OP_NO_TICKET": 16384,
+  "SSL_OP_NO_TLSv1": 67108864,
+  "SSL_OP_NO_TLSv1_1": 268435456,
+  "SSL_OP_NO_TLSv1_2": 134217728,
+  "SSL_OP_PKCS1_CHECK_1": 0,
+  "SSL_OP_PKCS1_CHECK_2": 0,
+  "SSL_OP_SINGLE_DH_USE": 1048576,
+  "SSL_OP_SINGLE_ECDH_USE": 524288,
+  "SSL_OP_SSLEAY_080_CLIENT_DH_BUG": 128,
+  "SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG": 0,
+  "SSL_OP_TLS_BLOCK_PADDING_BUG": 512,
+  "SSL_OP_TLS_D5_BUG": 256,
+  "SSL_OP_TLS_ROLLBACK_BUG": 8388608,
+  "ENGINE_METHOD_DSA": 2,
+  "ENGINE_METHOD_DH": 4,
+  "ENGINE_METHOD_RAND": 8,
+  "ENGINE_METHOD_ECDH": 16,
+  "ENGINE_METHOD_ECDSA": 32,
+  "ENGINE_METHOD_CIPHERS": 64,
+  "ENGINE_METHOD_DIGESTS": 128,
+  "ENGINE_METHOD_STORE": 256,
+  "ENGINE_METHOD_PKEY_METHS": 512,
+  "ENGINE_METHOD_PKEY_ASN1_METHS": 1024,
+  "ENGINE_METHOD_ALL": 65535,
+  "ENGINE_METHOD_NONE": 0,
+  "DH_CHECK_P_NOT_SAFE_PRIME": 2,
+  "DH_CHECK_P_NOT_PRIME": 1,
+  "DH_UNABLE_TO_CHECK_GENERATOR": 4,
+  "DH_NOT_SUITABLE_GENERATOR": 8,
+  "NPN_ENABLED": 1,
+  "RSA_PKCS1_PADDING": 1,
+  "RSA_SSLV23_PADDING": 2,
+  "RSA_NO_PADDING": 3,
+  "RSA_PKCS1_OAEP_PADDING": 4,
+  "RSA_X931_PADDING": 5,
+  "RSA_PKCS1_PSS_PADDING": 6,
+  "POINT_CONVERSION_COMPRESSED": 2,
+  "POINT_CONVERSION_UNCOMPRESSED": 4,
+  "POINT_CONVERSION_HYBRID": 6,
+  "F_OK": 0,
+  "R_OK": 4,
+  "W_OK": 2,
+  "X_OK": 1,
+  "UV_UDP_REUSEADDR": 4
+}
+
+},{}],21:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -2641,7 +4117,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":25}],21:[function(require,module,exports){
+},{"../../is-buffer/index.js":26}],22:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -2912,7 +4388,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 var http = require('http');
@@ -2930,7 +4406,7 @@ https.request = function (params, cb) {
     return http.request.call(this, params, cb);
 };
 
-},{"http":61}],23:[function(require,module,exports){
+},{"http":62}],24:[function(require,module,exports){
 "use strict";
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -3018,7 +4494,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 if (typeof Object.create === 'function') {
@@ -3045,7 +4521,7 @@ if (typeof Object.create === 'function') {
   };
 }
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3062,14 +4538,14 @@ module.exports = function (obj) {
   obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)));
 };
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -3198,7 +4674,7 @@ function magnetURIEncode(obj) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":15,"thirty-two":66,"uniq":69,"xtend":73}],28:[function(require,module,exports){
+},{"buffer":14,"thirty-two":67,"uniq":70,"xtend":76}],29:[function(require,module,exports){
 'use strict';
 
 var wrappy = require('wrappy');
@@ -3223,7 +4699,7 @@ function once(fn) {
   return f;
 }
 
-},{"wrappy":72}],29:[function(require,module,exports){
+},{"wrappy":75}],30:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -3366,7 +4842,7 @@ function ensure(bool, fieldName) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bencode":9,"buffer":15,"chrome-path":18,"simple-sha1":59,"uniq":69}],30:[function(require,module,exports){
+},{"bencode":8,"buffer":14,"chrome-path":18,"simple-sha1":60,"uniq":70}],31:[function(require,module,exports){
 (function (Buffer,process){
 'use strict';
 
@@ -3376,7 +4852,7 @@ module.exports = parseTorrent;
 module.exports.remote = parseTorrentRemote;
 
 var blobToBuffer = require('blob-to-buffer');
-var fs = require('./../../fakefs.js'); // browser exclude
+var fs = require('chrome-fs'); // browser exclude
 var get = require('simple-get/index');
 var magnet = require('magnet-uri');
 var parseTorrentFile = require('parse-torrent-file');
@@ -3476,7 +4952,7 @@ function isBlob(obj) {
 }
 
 }).call(this,{"isBuffer":require("../is-buffer/index.js")},require('_process'))
-},{"../is-buffer/index.js":25,"./../../fakefs.js":1,"_process":32,"blob-to-buffer":13,"magnet-uri":27,"parse-torrent-file":29,"simple-get/index":58}],31:[function(require,module,exports){
+},{"../is-buffer/index.js":26,"_process":33,"blob-to-buffer":12,"chrome-fs":17,"magnet-uri":28,"parse-torrent-file":30,"simple-get/index":59}],32:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3498,7 +4974,7 @@ function nextTick(fn) {
 }
 
 }).call(this,require('_process'))
-},{"_process":32}],32:[function(require,module,exports){
+},{"_process":33}],33:[function(require,module,exports){
 'use strict';
 
 // shim for using process in browser
@@ -3597,7 +5073,7 @@ process.umask = function () {
     return 0;
 };
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -4130,7 +5606,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })(undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4220,7 +5696,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4307,18 +5783,18 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":34,"./encode":35}],37:[function(require,module,exports){
+},{"./decode":35,"./encode":36}],38:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./lib/_stream_duplex.js");
 
-},{"./lib/_stream_duplex.js":38}],38:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":39}],39:[function(require,module,exports){
 // a duplex stream is just a stream that is both readable and writable.
 // Since JS doesn't have multiple prototypal inheritance, this class
 // prototypally inherits from Readable, and then parasitically from
@@ -4395,7 +5871,7 @@ function forEach(xs, f) {
   }
 }
 
-},{"./_stream_readable":40,"./_stream_writable":42,"core-util-is":20,"inherits":24,"process-nextick-args":31}],39:[function(require,module,exports){
+},{"./_stream_readable":41,"./_stream_writable":43,"core-util-is":21,"inherits":25,"process-nextick-args":32}],40:[function(require,module,exports){
 // a passthrough stream.
 // basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
@@ -4423,7 +5899,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
 
-},{"./_stream_transform":41,"core-util-is":20,"inherits":24}],40:[function(require,module,exports){
+},{"./_stream_transform":42,"core-util-is":21,"inherits":25}],41:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -5298,7 +6774,7 @@ function indexOf(xs, x) {
 }
 
 }).call(this,require('_process'))
-},{"./_stream_duplex":38,"_process":32,"buffer":15,"core-util-is":20,"events":21,"inherits":24,"isarray":26,"process-nextick-args":31,"string_decoder/":65,"util":14}],41:[function(require,module,exports){
+},{"./_stream_duplex":39,"_process":33,"buffer":14,"core-util-is":21,"events":22,"inherits":25,"isarray":27,"process-nextick-args":32,"string_decoder/":66,"util":13}],42:[function(require,module,exports){
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -5479,7 +6955,7 @@ function done(stream, er) {
   return stream.push(null);
 }
 
-},{"./_stream_duplex":38,"core-util-is":20,"inherits":24}],42:[function(require,module,exports){
+},{"./_stream_duplex":39,"core-util-is":21,"inherits":25}],43:[function(require,module,exports){
 // A bit simpler than readable streams.
 // Implement an async ._write(chunk, encoding, cb), and it'll handle all
 // the drain event emission and buffering.
@@ -5954,12 +7430,12 @@ function endWritable(stream, state, cb) {
   state.ended = true;
 }
 
-},{"./_stream_duplex":38,"buffer":15,"chrome-util-deprecate":19,"core-util-is":20,"events":21,"inherits":24,"process-nextick-args":31}],43:[function(require,module,exports){
+},{"./_stream_duplex":39,"buffer":14,"chrome-util-deprecate":19,"core-util-is":21,"events":22,"inherits":25,"process-nextick-args":32}],44:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./lib/_stream_passthrough.js");
 
-},{"./lib/_stream_passthrough.js":39}],44:[function(require,module,exports){
+},{"./lib/_stream_passthrough.js":40}],45:[function(require,module,exports){
 'use strict';
 
 var Stream = function () {
@@ -5975,17 +7451,17 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":38,"./lib/_stream_passthrough.js":39,"./lib/_stream_readable.js":40,"./lib/_stream_transform.js":41,"./lib/_stream_writable.js":42}],45:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":39,"./lib/_stream_passthrough.js":40,"./lib/_stream_readable.js":41,"./lib/_stream_transform.js":42,"./lib/_stream_writable.js":43}],46:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./lib/_stream_transform.js");
 
-},{"./lib/_stream_transform.js":41}],46:[function(require,module,exports){
+},{"./lib/_stream_transform.js":42}],47:[function(require,module,exports){
 "use strict";
 
 module.exports = require("./lib/_stream_writable.js");
 
-},{"./lib/_stream_writable.js":42}],47:[function(require,module,exports){
+},{"./lib/_stream_writable.js":43}],48:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) {
@@ -6054,7 +7530,7 @@ function applyMiddleware() {
   };
 }
 
-},{"./compose":50}],48:[function(require,module,exports){
+},{"./compose":51}],49:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -6109,7 +7585,7 @@ function bindActionCreators(actionCreators, dispatch) {
   return boundActionCreators;
 }
 
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -6242,7 +7718,7 @@ function combineReducers(reducers) {
 }
 
 }).call(this,require('_process'))
-},{"./createStore":51,"./utils/warning":53,"_process":32,"lodash/isPlainObject":56}],50:[function(require,module,exports){
+},{"./createStore":52,"./utils/warning":54,"_process":33,"lodash/isPlainObject":57}],51:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -6273,7 +7749,7 @@ function compose() {
   };
 }
 
-},{}],51:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6493,7 +7969,7 @@ function createStore(reducer, initialState, enhancer) {
   };
 }
 
-},{"lodash/isPlainObject":56}],52:[function(require,module,exports){
+},{"lodash/isPlainObject":57}],53:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -6545,7 +8021,7 @@ exports.applyMiddleware = _applyMiddleware2["default"];
 exports.compose = _compose2["default"];
 
 }).call(this,require('_process'))
-},{"./applyMiddleware":47,"./bindActionCreators":48,"./combineReducers":49,"./compose":50,"./createStore":51,"./utils/warning":53,"_process":32}],53:[function(require,module,exports){
+},{"./applyMiddleware":48,"./bindActionCreators":49,"./combineReducers":50,"./compose":51,"./createStore":52,"./utils/warning":54,"_process":33}],54:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6571,7 +8047,7 @@ function warning(message) {
   /* eslint-enable no-empty */
 }
 
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 /**
@@ -6595,7 +8071,7 @@ function isHostObject(value) {
 
 module.exports = isHostObject;
 
-},{}],55:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -6629,7 +8105,7 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 var isHostObject = require('./_isHostObject'),
@@ -6700,7 +8176,7 @@ function isPlainObject(value) {
 
 module.exports = isPlainObject;
 
-},{"./_isHostObject":54,"./isObjectLike":55}],57:[function(require,module,exports){
+},{"./_isHostObject":55,"./isObjectLike":56}],58:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -7154,7 +8630,7 @@ module.exports = isPlainObject;
 })();
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -7236,7 +8712,7 @@ function parseOptsUrl(opts) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":15,"http":61,"https":22,"once":28,"unzip-response":14,"url":70,"xtend":73}],59:[function(require,module,exports){
+},{"buffer":14,"http":62,"https":23,"once":29,"unzip-response":13,"url":71,"xtend":76}],60:[function(require,module,exports){
 'use strict';
 
 var Rusha = require('rusha');
@@ -7297,7 +8773,7 @@ function hex(buf) {
 module.exports = sha1;
 module.exports.sync = sha1sync;
 
-},{"rusha":57}],60:[function(require,module,exports){
+},{"rusha":58}],61:[function(require,module,exports){
 'use strict';
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -7425,7 +8901,7 @@ Stream.prototype.pipe = function (dest, options) {
   return dest;
 };
 
-},{"events":21,"inherits":24,"readable-stream/duplex.js":37,"readable-stream/passthrough.js":43,"readable-stream/readable.js":44,"readable-stream/transform.js":45,"readable-stream/writable.js":46}],61:[function(require,module,exports){
+},{"events":22,"inherits":25,"readable-stream/duplex.js":38,"readable-stream/passthrough.js":44,"readable-stream/readable.js":45,"readable-stream/transform.js":46,"readable-stream/writable.js":47}],62:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -7478,7 +8954,7 @@ http.STATUS_CODES = statusCodes;
 http.METHODS = ['CHECKOUT', 'CONNECT', 'COPY', 'DELETE', 'GET', 'HEAD', 'LOCK', 'M-SEARCH', 'MERGE', 'MKACTIVITY', 'MKCOL', 'MOVE', 'NOTIFY', 'OPTIONS', 'PATCH', 'POST', 'PROPFIND', 'PROPPATCH', 'PURGE', 'PUT', 'REPORT', 'SEARCH', 'SUBSCRIBE', 'TRACE', 'UNLOCK', 'UNSUBSCRIBE'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/request":63,"builtin-status-codes":17,"url":70,"xtend":73}],62:[function(require,module,exports){
+},{"./lib/request":64,"builtin-status-codes":16,"url":71,"xtend":76}],63:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -7523,7 +8999,7 @@ function isFunction(value) {
 xhr = null; // Help gc
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 (function (process,global,Buffer){
 'use strict';
 
@@ -7773,7 +9249,7 @@ ClientRequest.prototype.setSocketKeepAlive = function () {};
 var unsafeHeaders = ['accept-charset', 'accept-encoding', 'access-control-request-headers', 'access-control-request-method', 'connection', 'content-length', 'cookie', 'cookie2', 'date', 'dnt', 'expect', 'host', 'keep-alive', 'origin', 'referer', 'te', 'trailer', 'transfer-encoding', 'upgrade', 'user-agent', 'via'];
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":62,"./response":64,"_process":32,"buffer":15,"inherits":24,"stream":60,"to-arraybuffer":68}],64:[function(require,module,exports){
+},{"./capability":63,"./response":65,"_process":33,"buffer":14,"inherits":25,"stream":61,"to-arraybuffer":69}],65:[function(require,module,exports){
 (function (process,global,Buffer){
 'use strict';
 
@@ -7951,7 +9427,7 @@ IncomingMessage.prototype._onXHRProgress = function () {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":62,"_process":32,"buffer":15,"inherits":24,"stream":60}],65:[function(require,module,exports){
+},{"./capability":63,"_process":33,"buffer":14,"inherits":25,"stream":61}],66:[function(require,module,exports){
 'use strict';
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -8172,7 +9648,7 @@ function base64DetectIncompleteChar(buffer) {
   this.charLength = this.charReceived ? 3 : 0;
 }
 
-},{"buffer":15}],66:[function(require,module,exports){
+},{"buffer":14}],67:[function(require,module,exports){
 'use strict';
 
 /*                                                                              
@@ -8202,7 +9678,7 @@ var base32 = require('./thirty-two');
 exports.encode = base32.encode;
 exports.decode = base32.decode;
 
-},{"./thirty-two":67}],67:[function(require,module,exports){
+},{"./thirty-two":68}],68:[function(require,module,exports){
 (function (Buffer){
 "use strict";
 
@@ -8323,7 +9799,7 @@ exports.decode = function (encoded) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":15}],68:[function(require,module,exports){
+},{"buffer":14}],69:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -8354,7 +9830,7 @@ module.exports = function (buf) {
 	}
 };
 
-},{"buffer":15}],69:[function(require,module,exports){
+},{"buffer":14}],70:[function(require,module,exports){
 "use strict";
 
 function unique_pred(list, compare) {
@@ -8415,7 +9891,7 @@ function unique(list, compare, sorted) {
 
 module.exports = unique;
 
-},{}],70:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -9122,7 +10598,7 @@ Url.prototype.parseHost = function () {
   if (host) this.hostname = host;
 };
 
-},{"./util":71,"punycode":33,"querystring":36}],71:[function(require,module,exports){
+},{"./util":72,"punycode":34,"querystring":37}],72:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -9142,7 +10618,568 @@ module.exports = {
   }
 };
 
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+module.exports = function isBuffer(arg) {
+  return arg && (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && typeof arg.copy === 'function' && typeof arg.fill === 'function' && typeof arg.readUInt8 === 'function';
+};
+
+},{}],74:[function(require,module,exports){
+(function (process,global){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var formatRegExp = /%[sdj%]/g;
+exports.format = function (f) {
+  if (!isString(f)) {
+    var objects = [];
+    for (var i = 0; i < arguments.length; i++) {
+      objects.push(inspect(arguments[i]));
+    }
+    return objects.join(' ');
+  }
+
+  var i = 1;
+  var args = arguments;
+  var len = args.length;
+  var str = String(f).replace(formatRegExp, function (x) {
+    if (x === '%%') return '%';
+    if (i >= len) return x;
+    switch (x) {
+      case '%s':
+        return String(args[i++]);
+      case '%d':
+        return Number(args[i++]);
+      case '%j':
+        try {
+          return JSON.stringify(args[i++]);
+        } catch (_) {
+          return '[Circular]';
+        }
+      default:
+        return x;
+    }
+  });
+  for (var x = args[i]; i < len; x = args[++i]) {
+    if (isNull(x) || !isObject(x)) {
+      str += ' ' + x;
+    } else {
+      str += ' ' + inspect(x);
+    }
+  }
+  return str;
+};
+
+// Mark that a method should not be used.
+// Returns a modified function which warns once by default.
+// If --no-deprecation is set, then it is a no-op.
+exports.deprecate = function (fn, msg) {
+  // Allow for deprecating things in the process of starting up.
+  if (isUndefined(global.process)) {
+    return function () {
+      return exports.deprecate(fn, msg).apply(this, arguments);
+    };
+  }
+
+  if (process.noDeprecation === true) {
+    return fn;
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (process.throwDeprecation) {
+        throw new Error(msg);
+      } else if (process.traceDeprecation) {
+        console.trace(msg);
+      } else {
+        console.error(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+};
+
+var debugs = {};
+var debugEnviron;
+exports.debuglog = function (set) {
+  if (isUndefined(debugEnviron)) debugEnviron = process.env.NODE_DEBUG || '';
+  set = set.toUpperCase();
+  if (!debugs[set]) {
+    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
+      var pid = process.pid;
+      debugs[set] = function () {
+        var msg = exports.format.apply(exports, arguments);
+        console.error('%s %d: %s', set, pid, msg);
+      };
+    } else {
+      debugs[set] = function () {};
+    }
+  }
+  return debugs[set];
+};
+
+/**
+ * Echos the value of a value. Trys to print the value out
+ * in the best way possible given the different types.
+ *
+ * @param {Object} obj The object to print out.
+ * @param {Object} opts Optional options object that alters the output.
+ */
+/* legacy: obj, showHidden, depth, colors*/
+function inspect(obj, opts) {
+  // default options
+  var ctx = {
+    seen: [],
+    stylize: stylizeNoColor
+  };
+  // legacy...
+  if (arguments.length >= 3) ctx.depth = arguments[2];
+  if (arguments.length >= 4) ctx.colors = arguments[3];
+  if (isBoolean(opts)) {
+    // legacy...
+    ctx.showHidden = opts;
+  } else if (opts) {
+    // got an "options" object
+    exports._extend(ctx, opts);
+  }
+  // set default options
+  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+  if (isUndefined(ctx.depth)) ctx.depth = 2;
+  if (isUndefined(ctx.colors)) ctx.colors = false;
+  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+  if (ctx.colors) ctx.stylize = stylizeWithColor;
+  return formatValue(ctx, obj, ctx.depth);
+}
+exports.inspect = inspect;
+
+// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+inspect.colors = {
+  'bold': [1, 22],
+  'italic': [3, 23],
+  'underline': [4, 24],
+  'inverse': [7, 27],
+  'white': [37, 39],
+  'grey': [90, 39],
+  'black': [30, 39],
+  'blue': [34, 39],
+  'cyan': [36, 39],
+  'green': [32, 39],
+  'magenta': [35, 39],
+  'red': [31, 39],
+  'yellow': [33, 39]
+};
+
+// Don't use 'blue' not visible on cmd.exe
+inspect.styles = {
+  'special': 'cyan',
+  'number': 'yellow',
+  'boolean': 'yellow',
+  'undefined': 'grey',
+  'null': 'bold',
+  'string': 'green',
+  'date': 'magenta',
+  // "name": intentionally not styling
+  'regexp': 'red'
+};
+
+function stylizeWithColor(str, styleType) {
+  var style = inspect.styles[styleType];
+
+  if (style) {
+    return '\u001b[' + inspect.colors[style][0] + 'm' + str + '\u001b[' + inspect.colors[style][1] + 'm';
+  } else {
+    return str;
+  }
+}
+
+function stylizeNoColor(str, styleType) {
+  return str;
+}
+
+function arrayToHash(array) {
+  var hash = {};
+
+  array.forEach(function (val, idx) {
+    hash[val] = true;
+  });
+
+  return hash;
+}
+
+function formatValue(ctx, value, recurseTimes) {
+  // Provide a hook for user-specified inspect functions.
+  // Check that value is an object with an inspect function on it
+  if (ctx.customInspect && value && isFunction(value.inspect) &&
+  // Filter out the util module, it's inspect function is special
+  value.inspect !== exports.inspect &&
+  // Also filter out any prototype objects using the circular check.
+  !(value.constructor && value.constructor.prototype === value)) {
+    var ret = value.inspect(recurseTimes, ctx);
+    if (!isString(ret)) {
+      ret = formatValue(ctx, ret, recurseTimes);
+    }
+    return ret;
+  }
+
+  // Primitive types cannot have properties
+  var primitive = formatPrimitive(ctx, value);
+  if (primitive) {
+    return primitive;
+  }
+
+  // Look up the keys of the object.
+  var keys = Object.keys(value);
+  var visibleKeys = arrayToHash(keys);
+
+  if (ctx.showHidden) {
+    keys = Object.getOwnPropertyNames(value);
+  }
+
+  // IE doesn't make error fields non-enumerable
+  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+  if (isError(value) && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+    return formatError(value);
+  }
+
+  // Some type of object without properties can be shortcutted.
+  if (keys.length === 0) {
+    if (isFunction(value)) {
+      var name = value.name ? ': ' + value.name : '';
+      return ctx.stylize('[Function' + name + ']', 'special');
+    }
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    }
+    if (isDate(value)) {
+      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+    }
+    if (isError(value)) {
+      return formatError(value);
+    }
+  }
+
+  var base = '',
+      array = false,
+      braces = ['{', '}'];
+
+  // Make Array say that they are Array
+  if (isArray(value)) {
+    array = true;
+    braces = ['[', ']'];
+  }
+
+  // Make functions say that they are functions
+  if (isFunction(value)) {
+    var n = value.name ? ': ' + value.name : '';
+    base = ' [Function' + n + ']';
+  }
+
+  // Make RegExps say that they are RegExps
+  if (isRegExp(value)) {
+    base = ' ' + RegExp.prototype.toString.call(value);
+  }
+
+  // Make dates with properties first say the date
+  if (isDate(value)) {
+    base = ' ' + Date.prototype.toUTCString.call(value);
+  }
+
+  // Make error with message first say the error
+  if (isError(value)) {
+    base = ' ' + formatError(value);
+  }
+
+  if (keys.length === 0 && (!array || value.length == 0)) {
+    return braces[0] + base + braces[1];
+  }
+
+  if (recurseTimes < 0) {
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    } else {
+      return ctx.stylize('[Object]', 'special');
+    }
+  }
+
+  ctx.seen.push(value);
+
+  var output;
+  if (array) {
+    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+  } else {
+    output = keys.map(function (key) {
+      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+    });
+  }
+
+  ctx.seen.pop();
+
+  return reduceToSingleString(output, base, braces);
+}
+
+function formatPrimitive(ctx, value) {
+  if (isUndefined(value)) return ctx.stylize('undefined', 'undefined');
+  if (isString(value)) {
+    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '').replace(/'/g, "\\'").replace(/\\"/g, '"') + '\'';
+    return ctx.stylize(simple, 'string');
+  }
+  if (isNumber(value)) return ctx.stylize('' + value, 'number');
+  if (isBoolean(value)) return ctx.stylize('' + value, 'boolean');
+  // For some reason typeof null is "object", so special case here.
+  if (isNull(value)) return ctx.stylize('null', 'null');
+}
+
+function formatError(value) {
+  return '[' + Error.prototype.toString.call(value) + ']';
+}
+
+function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+  var output = [];
+  for (var i = 0, l = value.length; i < l; ++i) {
+    if (hasOwnProperty(value, String(i))) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, String(i), true));
+    } else {
+      output.push('');
+    }
+  }
+  keys.forEach(function (key) {
+    if (!key.match(/^\d+$/)) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, key, true));
+    }
+  });
+  return output;
+}
+
+function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+  var name, str, desc;
+  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+  if (desc.get) {
+    if (desc.set) {
+      str = ctx.stylize('[Getter/Setter]', 'special');
+    } else {
+      str = ctx.stylize('[Getter]', 'special');
+    }
+  } else {
+    if (desc.set) {
+      str = ctx.stylize('[Setter]', 'special');
+    }
+  }
+  if (!hasOwnProperty(visibleKeys, key)) {
+    name = '[' + key + ']';
+  }
+  if (!str) {
+    if (ctx.seen.indexOf(desc.value) < 0) {
+      if (isNull(recurseTimes)) {
+        str = formatValue(ctx, desc.value, null);
+      } else {
+        str = formatValue(ctx, desc.value, recurseTimes - 1);
+      }
+      if (str.indexOf('\n') > -1) {
+        if (array) {
+          str = str.split('\n').map(function (line) {
+            return '  ' + line;
+          }).join('\n').substr(2);
+        } else {
+          str = '\n' + str.split('\n').map(function (line) {
+            return '   ' + line;
+          }).join('\n');
+        }
+      }
+    } else {
+      str = ctx.stylize('[Circular]', 'special');
+    }
+  }
+  if (isUndefined(name)) {
+    if (array && key.match(/^\d+$/)) {
+      return str;
+    }
+    name = JSON.stringify('' + key);
+    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+      name = name.substr(1, name.length - 2);
+      name = ctx.stylize(name, 'name');
+    } else {
+      name = name.replace(/'/g, "\\'").replace(/\\"/g, '"').replace(/(^"|"$)/g, "'");
+      name = ctx.stylize(name, 'string');
+    }
+  }
+
+  return name + ': ' + str;
+}
+
+function reduceToSingleString(output, base, braces) {
+  var numLinesEst = 0;
+  var length = output.reduce(function (prev, cur) {
+    numLinesEst++;
+    if (cur.indexOf('\n') >= 0) numLinesEst++;
+    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+  }, 0);
+
+  if (length > 60) {
+    return braces[0] + (base === '' ? '' : base + '\n ') + ' ' + output.join(',\n  ') + ' ' + braces[1];
+  }
+
+  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+}
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+function isArray(ar) {
+  return Array.isArray(ar);
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return isObject(re) && objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return isObject(d) && objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return isObject(e) && (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null || typeof arg === 'boolean' || typeof arg === 'number' || typeof arg === 'string' || (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'symbol' || // ES6 symbol
+  typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = require('./support/isBuffer');
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+function pad(n) {
+  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+}
+
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// 26 Feb 16:19:34
+function timestamp() {
+  var d = new Date();
+  var time = [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  return [d.getDate(), months[d.getMonth()], time].join(' ');
+}
+
+// log is just a thin wrapper to console.log that prepends a timestamp
+exports.log = function () {
+  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+};
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * The Function.prototype.inherits from lang.js rewritten as a standalone
+ * function (not on Function.prototype). NOTE: If this file is to be loaded
+ * during bootstrapping this function needs to be rewritten using some native
+ * functions as prototype setup using normal JavaScript does not work as
+ * expected during bootstrapping (see mirror.js in r114903).
+ *
+ * @param {function} ctor Constructor function which needs to inherit the
+ *     prototype.
+ * @param {function} superCtor Constructor function to inherit prototype from.
+ */
+exports.inherits = require('inherits');
+
+exports._extend = function (origin, add) {
+  // Don't do anything if add isn't an object
+  if (!add || !isObject(add)) return origin;
+
+  var keys = Object.keys(add);
+  var i = keys.length;
+  while (i--) {
+    origin[keys[i]] = add[keys[i]];
+  }
+  return origin;
+};
+
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":73,"_process":33,"inherits":25}],75:[function(require,module,exports){
 'use strict';
 
 // Returns a wrapper function that returns a wrapped callback
@@ -9178,7 +11215,7 @@ function wrappy(fn, cb) {
   }
 }
 
-},{}],73:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 "use strict";
 
 module.exports = extend;
@@ -9201,4 +11238,4 @@ function extend() {
     return target;
 }
 
-},{}]},{},[3]);
+},{}]},{},[2]);
