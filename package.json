@@ -9,7 +9,7 @@
     "build-app": "browserify lib/app.js -g babelify -g aliasify --outfile public/js/bundle.js -v",
     "build-extension": "browserify lib/background.js -g babelify -g aliasify -g declareify --outfile public/background.js -v",
     "watch-extension": "watchify lib/background.js -g babelify -g aliasify -g declareify --outfile public/background.js -v",
-    "build": "npm run build-app && npm run build-extension",
+    "build": "npm run build-app && npm run build-extension && crx pack ./public -o ./extension.crx -p ~/.ssh/wtorrent-extension",
     "watch": "crxify -p ~/.ssh/wtorrent-extension & npm run watch-app & npm run watch-extension"
   },
   "author": "Aram Drevekenin",
@@ -33,6 +33,7 @@
     "chrome-path": "^1.0.0",
     "chrome-util-deprecate": "^1.0.0",
     "chromiumify": "^9.0.0",
+    "crx": "^3.0.3",
     "cssify": "^1.0.1",
     "flux": "^2.1.1",
     "keymirror": "^0.1.1",
@@ -74,8 +75,7 @@
       "depd": "chrome-depd",
       "path": "chrome-path",
       "util-deprecate": "chrome-util-deprecate"
-    },
-    "verbose": "true"
+    }
   },
   "babel": {
     "presets": [
