@@ -4,7 +4,6 @@
   "description": "Dashboard for webTorrent - Chrome Extension",
   "main": "server.js",
   "scripts": {
-    "postinstall": "browserinc",
     "watch": "watchify -g babelify -g aliasify -g declareify -p [ factor-bundle -o public/js/app.js -o public/js/background.js ] lib/app.js lib/background.js --outfile public/js/common.js -v & crxify -p ~/.ssh/wtorrent-extension",
     "build": "browserify -g babelify -g aliasify -g declareify -p [ factor-bundle -o public/js/app.js -o public/js/background.js ] lib/app.js lib/background.js --outfile public/js/common.js && crx pack ./public -o ./extension.crx -p ~/.ssh/wtorrent-extension"
   },
@@ -48,13 +47,6 @@
     "presets": [
       "es2015",
       "react"
-    ]
-  },
-  "browserinc": {
-    "include": [
-      "./lib/common-node.js",
-      "./lib/client/http-tracker.js",
-      "./lib/client/udp-tracker.js"
     ]
   }
 }
