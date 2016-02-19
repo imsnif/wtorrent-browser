@@ -4,8 +4,8 @@
   "description": "Dashboard for webTorrent - Chrome Extension",
   "main": "server.js",
   "scripts": {
-    "watch": "watchify -g babelify -g aliasify -g declareify -p [ factor-bundle -o public/js/app.js -o public/js/background.js ] lib/app.js lib/background.js --outfile public/js/common.js -v & crxify -p ~/.ssh/wtorrent-extension",
-    "build": "browserify -g babelify -g aliasify -g declareify -p [ factor-bundle -o public/js/app.js -o public/js/background.js ] lib/app.js lib/background.js --outfile public/js/common.js && crx pack ./public -o ./extension.crx -p ~/.ssh/wtorrent-extension"
+    "watch": "watchify -t babelify -g aliasify -p [ factor-bundle -o public/js/app.js -o public/js/background.js ] lib/app.js lib/background.js --outfile public/js/common.js -v & crxify -p ~/.ssh/wtorrent-extension",
+    "build": "browserify -t babelify -g aliasify -p [ factor-bundle -o public/js/app.js -o public/js/background.js ] lib/app.js lib/background.js --outfile public/js/common.js && crx pack ./public -o ./extension.crx -p ~/.ssh/wtorrent-extension"
   },
   "author": "Aram Drevekenin",
   "license": "MIT",
@@ -24,7 +24,6 @@
     "chrome-path": "^1.0.0",
     "chrome-util-deprecate": "^1.0.0",
     "crx": "^3.0.3",
-    "declareify": "^2.0.0",
     "factor-bundle": "^2.5.0",
     "is-buffer": "^1.1.2",
     "parse-torrent": "^5.7.0",
