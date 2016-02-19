@@ -38,16 +38,8 @@
   },
   "aliasify": {
     "aliases": {
-      "net": "chrome-net",
-      "dgram": "chrome-dgram",
-      "dns": "native-dns",
       "fs": "chrome-fs",
-      "addr-to-ip-port": "addr-to-ip-port/index",
-      "load-ip-set": "load-ip-set/index",
-      "ut_pex": "ut_pex/index",
       "simple-get": "simple-get/index",
-      "debug": "chrome-debug",
-      "depd": "chrome-depd",
       "path": "chrome-path",
       "util-deprecate": "chrome-util-deprecate"
     }
